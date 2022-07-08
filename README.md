@@ -32,3 +32,45 @@ dotnet new globaljson --sdk-version 5.0.408 --force
 dotnet new webapi -n 
 
 Postman review
+
+For a sigle Object:
+        public Evento Get()
+        {
+            return new Evento(){
+                EventoId = 1,
+                Tema = "Angular 11 e .NET 5",
+                Local = "Belo Horizonte",
+                Lote = 250,
+                DataEvento =  DateTime.Now.AddDays(2).ToString(),
+                ImagemURL = "foto.png"
+            };
+        }
+
+For a list of Object
+       public IEnumerable<Evento> Get()
+        {
+            return new Evento[] {
+                new Evento(){
+                    EventoId = 1,
+                    Tema = "Angular 11 e .NET 5",
+                    Local = "Belo Horizonte",
+                    Lote = 250,
+                    DataEvento =  DateTime.Now.AddDays(2).ToString(),
+                    ImagemURL = "foto.png"
+                },
+                new Evento(){
+                    EventoId = 2,
+                    Tema = "Studing Angular 11 e .NET 5",
+                    Local = "Araquari",
+                    Lote = 1000,
+                    DataEvento =  DateTime.Now.AddDays(2).ToString(),
+                    ImagemURL = "eu.png"
+                }
+            };
+        }
+
+Filtering results
+        [HttpGet("{id}")]
+        public IEnumerable<Evento> GetById(int id){
+            return _evento.Where(evento => evento.EventoId == id);
+        }
