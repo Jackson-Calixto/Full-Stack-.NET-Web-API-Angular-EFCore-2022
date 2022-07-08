@@ -74,3 +74,38 @@ Filtering results
         public IEnumerable<Evento> GetById(int id){
             return _evento.Where(evento => evento.EventoId == id);
         }
+
+EF Core
+DataContext.cs
+    public class DataContext: DbContext
+    {
+        public DataContext(DbContextOptions<DataContext> options):base(options) {}
+        public DbSet<Evento> Eventos {get; set;}
+    }
+
+appsettings.Development.json
+  "ConnectionStrings": {
+    "Default":"Data Source=ProEventos.db"
+  },
+
+Startup.cs
+public void ConfigureServices(IServiceCollection services)
+            services.AddDbContext<DataContext>(
+                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
+            );
+
+dotnet ef migrations add Initial -o .\Data\Migrations
+dotnet ef database update
+
+ private readonly DataContext _context;
+
+        public EventoController(DataContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+         public IEnumerable<Evento> Get()
+        {
+            return _context.Eventos;
+        }
