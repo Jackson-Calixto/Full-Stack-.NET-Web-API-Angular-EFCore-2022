@@ -29,7 +29,7 @@ dotnet watch run -p .\ProEventos.API\
 Starting from Zero
 dotnet new globaljson --sdk-version 5.0.408 --force
 
-dotnet new webapi -n 
+dotnet new webapi -n ProjName -f net5.0 
 
 Postman review
 
