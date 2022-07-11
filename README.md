@@ -131,3 +131,16 @@ Color Highlight - Sergii N
 GitLens — Git supercharged - GitKraken
 Path Intellisense - Christian Kohler
 ESLint - Microsoft
+
+New Angular Project
+ng new AngularProject
+? Would you like to add Angular routing? Yes
+? Which stylesheet format would you like to use? SCSS   [ https://sass-lang.com/documentation/syntax#scss                ]
+
+Starting Project
+package.json
+npm start / ng serve
+Update package.json
+from: "start": "ng serve", to: "start": "ng serve -o", will start and open...
+
+ng generate component / ng g c
