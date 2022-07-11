@@ -94,7 +94,16 @@ public void ConfigureServices(IServiceCollection services)
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
 
-dotnet ef migrations add Initial -o .\Data\Migrations
+dotnet ef migrations add Migration1 -o .\Data\Migrations
+dotnet ef database update
+dotnet ef migrations add Migration2 -o .\Data\Migrations
+dotnet ef database update
+
+Reverting Migrations
+dotnet ef migrations list
+dotnet ef database update Migration1
+dotnet ef migrations remove
+dotnet ef migrations add MigrationX -o .\Data\Migrations
 dotnet ef database update
 
  private readonly DataContext _context;
@@ -109,3 +118,16 @@ dotnet ef database update
         {
             return _context.Eventos;
         }
+
+Angular Setup
+install npm LTS
+npm install -g @angular/cli
+
+Angular Essentials - John Papa
+Angular Files - Alexander Ivanichev
+Auto Close Tag - Jun Han
+Auto Rename Tag - Jun Han
+Color Highlight - Sergii N
+GitLens — Git supercharged - GitKraken
+Path Intellisense - Christian Kohler
+ESLint - Microsoft
