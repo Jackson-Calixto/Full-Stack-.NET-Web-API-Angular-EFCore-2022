@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventosComponent implements OnInit {
 
+  public evento: any = {
+    Tema: 'Angular',
+    Local: 'Belo Horizonte'
+  }
   constructor() { }
 
   ngOnInit(): void {
