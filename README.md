@@ -144,3 +144,7 @@ Update package.json
 from: "start": "ng serve", to: "start": "ng serve -o", will start and open...
 
 ng generate component / ng g c
+
+npm install @fortawesome/fontawesome-free --save
+npm install ngx-bootstrap --save
+npm install bootstrap@4
