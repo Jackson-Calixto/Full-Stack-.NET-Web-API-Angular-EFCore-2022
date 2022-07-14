@@ -10,8 +10,9 @@ import { response } from 'express';
 export class EventosComponent implements OnInit {
 
   public eventos: any;
-  widthImg = 100;
+  widthImg = 150;
   marginImg = 2;
+  exibirImagem = true;
 
   public getEventos(): void {
     this.http.get('https://localhost:5001/api/eventos').subscribe(
