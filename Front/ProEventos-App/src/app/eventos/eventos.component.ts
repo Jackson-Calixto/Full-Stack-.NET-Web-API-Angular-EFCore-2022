@@ -10,6 +10,8 @@ import { response } from 'express';
 export class EventosComponent implements OnInit {
 
   public eventos: any;
+  widthImg = 100;
+  marginImg = 2;
 
   public getEventos(): void {
     this.http.get('https://localhost:5001/api/eventos').subscribe(
@@ -21,7 +23,7 @@ export class EventosComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.getEventos();
+     this.getEventos();
   }
 
 }
