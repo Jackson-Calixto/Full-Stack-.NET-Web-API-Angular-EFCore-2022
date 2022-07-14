@@ -148,3 +148,8 @@ ng generate component / ng g c
 npm install @fortawesome/fontawesome-free --save
 npm install ngx-bootstrap --save
 npm install bootstrap@4
+
+Adding nav bar
+https://getbootstrap.com/docs/5.2/components/navbar/#nav
+Copy HTML
+src\app -> Generate Componet [nav]
