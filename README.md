@@ -153,3 +153,7 @@ Adding nav bar
 https://getbootstrap.com/docs/5.2/components/navbar/#nav
 Copy HTML
 src\app -> Generate Componet [nav]
+
+*ngIf Diretivas Estrutrurais
+{{}} Interpolação
+[] Property Binding
