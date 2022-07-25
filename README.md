@@ -157,3 +157,8 @@ src\app -> Generate Componet [nav]
 *ngIf Diretivas Estrutrurais
 {{}} Interpolação
 [] Property Binding
+
+On app.module.ts
+imports [FormsModule] to use [(ngModel)]="variable"
+
+Form changed to Div to be presented in the future

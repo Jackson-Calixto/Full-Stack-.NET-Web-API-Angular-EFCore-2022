@@ -13,6 +13,7 @@ export class EventosComponent implements OnInit {
   widthImg = 150;
   marginImg = 2;
   exibirImagem = true;
+  filtroBusca = '';
 
   public getEventos(): void {
     this.http.get('https://localhost:5001/api/eventos').subscribe(

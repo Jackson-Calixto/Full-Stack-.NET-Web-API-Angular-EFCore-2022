@@ -1,55 +1,65 @@
 <h2>Eventos</h2>
-<hr>
-<form action="
-" class="form-inline">
+<hr />
+<div  class="form-inline">
   <div class="form-group mb-2">
-    <input type="text"
-    class="form-control mr-2"
-    placeholder="buscar"
-    
-    >
+    <input
+      type="text"
+      class="form-control mr-2"
+      placeholder="buscar"
+      [(ngModel)]="filtroBusca"
+    />
     <button class="btn btn-outline-success">Buscar</button>
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th>
-            <button type="button" class="btn btn-outline-light btn-sm"
-            (click)="exibirImagem=!exibirImagem">
-              {{exibirImagem?'Ocultar':'Exibir'}}
-            </button>
-          </th>
-          <th>#</th>
-          <th>Tema</th>
-          <th>Local</th>
-          <th>Data</th>
-          <th>Qtd Pessoas</th>
-          <th>Lote</th>
-          <th>Opções</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="eventos && eventos.length">
-        <tr *ngFor="let evento of eventos">
-          <td>
-            <img [collapse]="!exibirImagem" [isAnimated]="true"
-            *ngIf="exibirImagem" src="assets/{{evento.imagemURL}}" alt=""
-            [style.width.px]="widthImg"
-            [style.margin.px]="marginImg"
-            >
-          </td>
-          <td>{{evento.eventoId}}</td>
-          <td>{{evento.tema}}</td>
-          <td>{{evento.local}}</td>
-          <td>{{evento.dataEvento}}</td>
-          <td>{{evento.qtdPessoas}}</td>
-          <td>{{evento.lote}}</td>
-          <td></td>
-        </tr>
-      </tbody>
-      <tfoot *ngIf="!eventos || eventos.length==0">
-        <tr>
-          <td colspan="8" class="text-center"><h4>Nenhum evento encontrado!</h4></td>
-        </tr>
-      </tfoot>
-    </table>
   </div>
-</form>
+</div>
+<h3>Filtro: {{filtroBusca}}</h3>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm"
+          (click)="exibirImagem = !exibirImagem"
+        >
+          {{ exibirImagem ? "Ocultar" : "Exibir" }}
+        </button>
+      </th>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="eventos && eventos.length">
+    <tr *ngFor="let evento of eventos">
+      <td>
+        <img
+          [collapse]="!exibirImagem"
+          [isAnimated]="true"
+          *ngIf="exibirImagem"
+          src="assets/{{ evento.imagemURL }}"
+          alt=""
+          [style.width.px]="widthImg"
+          [style.margin.px]="marginImg"
+        />
+      </td>
+      <td>{{ evento.eventoId }}</td>
+      <td>{{ evento.tema }}</td>
+      <td>{{ evento.local }}</td>
+      <td>{{ evento.dataEvento }}</td>
+      <td>{{ evento.qtdPessoas }}</td>
+      <td>{{ evento.lote }}</td>
+      <td></td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!eventos || eventos.length == 0">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado!</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
