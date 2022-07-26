@@ -167,3 +167,5 @@ dotnet new sln -n ProEventos
 dotnet new classlib -n ProEventos.Application
 dotnet sln .\ProEventos.sln add .\ProEventos.Application\
 dotnet add .\ProEventos.Application\ProEventos.Application.csproj reference .\ProEventos.Persistence\
+
+Ctrl+D Select Matches
