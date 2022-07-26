@@ -169,3 +169,6 @@ dotnet sln .\ProEventos.sln add .\ProEventos.Application\
 dotnet add .\ProEventos.Application\ProEventos.Application.csproj reference .\ProEventos.Persistence\
 
 Ctrl+D Select Matches
+
+dotnet ef migrations add Initial -p .\ProEventos.Persistence\ -s .\ProEventos.API\
+dotnet ef database update -s .\ProEventos.API\
