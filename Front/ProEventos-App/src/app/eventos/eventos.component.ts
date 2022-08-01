@@ -1,55 +1,59 @@
-import { HttpClient } from '@angular/common/http';
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { response } from 'express';
+import { Evento } from '../models/Evento';
 import { EventoService } from '../services/evento.service';
 
 @Component({
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
   styleUrls: ['./eventos.component.scss'],
-//  providers: [EventoService]
+  //  providers: [EventoService]
 })
 export class EventosComponent implements OnInit {
-
-  filtrarEventos(filtrarPor: string): any {
-    filtrarPor =  filtrarPor.toLowerCase();
+  filtrarEventos(filtrarPor: string): Evento[] {
+    filtrarPor = filtrarPor.toLowerCase();
     return this.eventos.filter(
-      (evento: any) => evento.tema.toLowerCase().indexOf(filtrarPor) !== -1 ||
-                       evento.local.toLowerCase().indexOf(filtrarPor) !== -1
-    )
+      (evento: any) =>
+        evento.tema.toLowerCase().indexOf(filtrarPor) !== -1 ||
+        evento.local.toLowerCase().indexOf(filtrarPor) !== -1
+    );
   }
 
-  public eventos: any;
-  public eventosFiltrados: any;
-  widthImg = 150;
-  marginImg = 2;
-  exibirImagem = true;
-  private _filtroBusca = '';
+  public eventos: Evento[] = [];
+  public eventosFiltrados: Evento[] = [];
 
-  public get filtroBusca():string {
-    return this._filtroBusca;
+  public widthImg = 150;
+  public marginImg = 2;
+  public exibirImagem = true;
+  private filtroListado = '';
+
+  public get filtroLista(): string {
+    return this.filtroListado;
   }
 
-  public set filtroBusca(value: string) {
-    this._filtroBusca = value;
-    this.eventosFiltrados = this.filtroBusca ? this.filtrarEventos(this.filtroBusca) : this.eventos;
+  public set filtroLista(value: string) {
+    this.filtroListado = value;
+    this.eventosFiltrados = this.filtroLista
+      ? this.filtrarEventos(this.filtroLista)
+      : this.eventos;
+  }
+
+  constructor(private eventoService: EventoService) {}
+
+  public ngOnInit(): void {
+    this.getEventos();
+  }
+
+  public alterarImagem(): void {
+    this.exibirImagem = !this.exibirImagem;
   }
 
   public getEventos(): void {
     this.eventoService.getEventos().subscribe(
-      response => {
-        this.eventos = response;
+      (eventos: Evento[]) => {
+        this.eventos = eventos;
         this.eventosFiltrados = this.eventos;
       },
-      error => console.log(error)
+      (error) => console.log(error)
     );
   }
-
-  constructor(private eventoService: EventoService) { }
-
-  ngOnInit(): void {
-     this.getEventos();
-  }
-
 }
