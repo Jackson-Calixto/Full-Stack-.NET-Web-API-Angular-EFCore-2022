@@ -176,3 +176,23 @@ dotnet ef database update -s .\ProEventos.API\
 Front End
 models/generate interface
 copy props from back to front
+
+services/generate service
+"name in lowercase".service.ts is added automatically
+
+3 options for injectables
+1.
+@Injectable({
+  providedIn: 'root',
+})
+
+2.
+@Component({
+  selector: 'app-eventos',
+  templateUrl: './eventos.component.html',
+  styleUrls: ['./eventos.component.scss'],
+  providers: [EventoService]
+})
+3.
+in app.module.ts
+providers: [EventoService],
