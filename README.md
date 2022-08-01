@@ -172,3 +172,7 @@ Ctrl+D Select Matches
 
 dotnet ef migrations add Initial -p .\ProEventos.Persistence\ -s .\ProEventos.API\
 dotnet ef database update -s .\ProEventos.API\
+
+Front End
+models/generate interface
+copy props from back to front
