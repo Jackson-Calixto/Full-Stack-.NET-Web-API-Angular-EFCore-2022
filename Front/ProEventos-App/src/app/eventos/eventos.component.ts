@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Evento } from '../models/Evento';
 import { EventoService } from '../services/evento.service';
 
@@ -9,14 +10,7 @@ import { EventoService } from '../services/evento.service';
   //  providers: [EventoService]
 })
 export class EventosComponent implements OnInit {
-  filtrarEventos(filtrarPor: string): Evento[] {
-    filtrarPor = filtrarPor.toLowerCase();
-    return this.eventos.filter(
-      (evento: any) =>
-        evento.tema.toLowerCase().indexOf(filtrarPor) !== -1 ||
-        evento.local.toLowerCase().indexOf(filtrarPor) !== -1
-    );
-  }
+  modalRef: any;
 
   public eventos: Evento[] = [];
   public eventosFiltrados: Evento[] = [];
@@ -25,6 +19,15 @@ export class EventosComponent implements OnInit {
   public marginImg = 2;
   public exibirImagem = true;
   private filtroListado = '';
+
+  filtrarEventos(filtrarPor: string): Evento[] {
+    filtrarPor = filtrarPor.toLowerCase();
+    return this.eventos.filter(
+      (evento: any) =>
+        evento.tema.toLowerCase().indexOf(filtrarPor) !== -1 ||
+        evento.local.toLowerCase().indexOf(filtrarPor) !== -1
+    );
+  }
 
   public get filtroLista(): string {
     return this.filtroListado;
@@ -37,7 +40,10 @@ export class EventosComponent implements OnInit {
       : this.eventos;
   }
 
-  constructor(private eventoService: EventoService) {}
+  constructor(
+    private eventoService: EventoService,
+    private modalService: BsModalService
+  ) {}
 
   public ngOnInit(): void {
     this.getEventos();
@@ -55,5 +61,17 @@ export class EventosComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  confirm(): void {
+    this.modalRef.hide();
+  }
+
+  decline(): void {
+    this.modalRef.hide();
   }
 }

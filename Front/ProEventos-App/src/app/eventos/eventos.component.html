@@ -58,7 +58,7 @@
           <i class="fa fa-edit"></i>
           <!-- Editar -->
         </button>
-        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir">
+        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(template)">
           <i class="fa fa-trash"></i>
           <!-- Excluir -->
         </button>
@@ -73,3 +73,13 @@
     </tr>
   </tfoot>
 </table>
+
+<!-- {{eventos | json}} -->
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja excluir esse evento?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+  </div>
+</ng-template>
