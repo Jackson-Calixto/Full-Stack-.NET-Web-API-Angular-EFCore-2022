@@ -196,3 +196,6 @@ services/generate service
 3.
 in app.module.ts
 providers: [EventoService],
+
+https://www.npmjs.com/package/ngx-spinner
+Working Demo has code generator to init ngx-spinner

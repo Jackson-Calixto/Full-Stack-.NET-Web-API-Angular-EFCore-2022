@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from '../models/Evento';
 import { EventoService } from '../services/evento.service';
@@ -44,10 +45,12 @@ export class EventosComponent implements OnInit {
   constructor(
     private eventoService: EventoService,
     private modalService: BsModalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {}
 
   public ngOnInit(): void {
+    this.spinner.show();
     this.getEventos();
   }
 
@@ -56,13 +59,18 @@ export class EventosComponent implements OnInit {
   }
 
   public getEventos(): void {
-    this.eventoService.getEventos().subscribe(
-      (eventos: Evento[]) => {
+    this.eventoService.getEventos().subscribe({
+      next: (eventos: Evento[]) => {
         this.eventos = eventos;
         this.eventosFiltrados = this.eventos;
       },
-      (error) => console.log(error)
-    );
+      error: (error) => {
+        console.log(error);
+        this.spinner.hide();
+        this.toastr.error('Erro ao carreger os eventos', 'Erro!');
+      },
+      complete: () => this.spinner.hide(),
+    });
   }
 
   openModal(template: TemplateRef<any>) {
@@ -70,8 +78,8 @@ export class EventosComponent implements OnInit {
   }
 
   confirm(): void {
-    this.toastr.success('O evento foi excluido com sucesso...', 'Excluido!');
     this.modalRef.hide();
+    this.toastr.success('O evento foi excluido com sucesso...', 'Excluido!');
   }
 
   decline(): void {
