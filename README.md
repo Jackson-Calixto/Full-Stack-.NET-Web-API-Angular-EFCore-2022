@@ -202,3 +202,13 @@ Working Demo has code generator to init ngx-spinner
 
 Updating Angular
 ng update @angular/core @angular/cli
+
+Input parameters for components
+in component.ts
+@Input() titulo: string = '';
+
+in component.html
+{{titulo}}
+
+Using and Passing parameter
+<app-titulo [titulo]="'Palestrantes'"></app-titulo>

@@ -5,6 +5,7 @@
       class="navbar-toggler"
       type="button"
       (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
       aria-controls="navbarNav"
@@ -17,6 +18,7 @@
       class="collapse navbar-collapse"
       id="navbarNav"
       [collapse]="isCollapsed"
+      [isAnimated]="false"
     >
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
