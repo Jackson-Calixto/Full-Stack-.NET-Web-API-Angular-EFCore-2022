@@ -199,3 +199,6 @@ providers: [EventoService],
 
 https://www.npmjs.com/package/ngx-spinner
 Working Demo has code generator to init ngx-spinner
+
+Updating Angular
+ng update @angular/core @angular/cli
