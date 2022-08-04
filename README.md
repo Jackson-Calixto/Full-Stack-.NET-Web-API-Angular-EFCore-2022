@@ -212,3 +212,11 @@ in component.html
 
 Using and Passing parameter
 <app-titulo [titulo]="'Palestrantes'"></app-titulo>
+
+Layout 
+https://bootsnipp.com/
+https://bootswatch.com/
+https://github.com/thomaspark/bootswatch
+npm install bootswatch
+In styles.scss do below:
+import "bootswatch/dist/[theme]/bootstrap.min.css";
