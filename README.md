@@ -227,3 +227,6 @@ https://getbootstrap.com/docs/5.2/examples/
 https://getbootstrap.com/docs/5.2/examples/offcanvas-navbar/
 Edit as HTML
 Copy
+
+Best Bootstrap Autocomplete and Auto Class Suggestor Intellisense Extension for VSCode
+IntelliSense for CSS class names in HTML - Zignd
