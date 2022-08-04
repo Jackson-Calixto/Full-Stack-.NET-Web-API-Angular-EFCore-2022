@@ -1,5 +1,9 @@
-<app-titulo [titulo]="'Eventos'"></app-titulo>
-<div  class="form-inline">
+<app-titulo
+  [titulo]="'Eventos'"
+  [iconClass]="'fa-solid fa-calendar-days'"
+  [botaoListar]="true"
+></app-titulo>
+<div class="form-inline">
   <div class="form-group mb-2">
     <label class="mr-2">Filtro: </label>
     <input
@@ -20,7 +24,7 @@
           class="btn btn-outline-light btn-sm"
           (click)="alterarImagem()"
         >
-        <i class="{{ !exibirImagem ? 'fa fa-eye' : 'fa fa-eye-slash' }}"></i>
+          <i class="{{ !exibirImagem ? 'fa fa-eye' : 'fa fa-eye-slash' }}"></i>
           {{ !exibirImagem ? "Exibir" : "Ocultar" }}
         </button>
       </th>
@@ -53,11 +57,20 @@
       <td>{{ evento.qtdPessoas }}</td>
       <td>{{ evento.lotes[0].nome }}</td>
       <td>
-        <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar">
+        <button
+          type="button"
+          class="btn btn-primary btn-sm mr-2"
+          tooltip="Editar"
+        >
           <i class="fa fa-edit"></i>
           <!-- Editar -->
         </button>
-        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(template)">
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          tooltip="Excluir"
+          (click)="openModal(template)"
+        >
           <i class="fa fa-trash"></i>
           <!-- Excluir -->
         </button>
@@ -78,7 +91,11 @@
 <ng-template #template>
   <div class="modal-body text-center">
     <p>Tem certeza que deseja excluir esse evento?</p>
-    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+    <button type="button" class="btn btn-default" (click)="confirm()">
+      Sim
+    </button>
+    <button type="button" class="btn btn-primary" (click)="decline()">
+      Não
+    </button>
   </div>
 </ng-template>

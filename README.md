@@ -220,3 +220,10 @@ https://github.com/thomaspark/bootswatch
 npm install bootswatch
 In styles.scss do below:
 import "bootswatch/dist/[theme]/bootstrap.min.css";
+
+Coping Exemplo
+https://getbootstrap.com/
+https://getbootstrap.com/docs/5.2/examples/
+https://getbootstrap.com/docs/5.2/examples/offcanvas-navbar/
+Edit as HTML
+Copy
