@@ -23,7 +23,7 @@
     </div>
   </div>
   <!-- <h3>Filtro: {{filtroBusca}}</h3> -->
-  <table class="table table-striped">
+  <table class="table table-striped table-hover">
     <thead class="thead-dark">
       <tr>
         <th class="d-none d-md-table-cell">
@@ -48,7 +48,7 @@
       </tr>
     </thead>
     <tbody *ngIf="eventosFiltrados && eventosFiltrados.length">
-      <tr *ngFor="let evento of eventosFiltrados">
+      <tr *ngFor="let evento of eventosFiltrados" (click)="eventoDetalhe(evento.id)" style="cursor: pointer">
         <td class="d-none d-md-table-cell">
           <img
             [collapse]="!exibirImagem"
