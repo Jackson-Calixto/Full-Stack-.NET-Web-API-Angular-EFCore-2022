@@ -1,6 +1,8 @@
-<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg bg-white shadow-sm" *ngIf="showMenu()">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="dashboard">ProEventos</a>
+    <a class="navbar-brand" routerLink="dashboard">
+      <i class="fa fa-users mb-2"></i>
+    </a>
     <button
       class="navbar-toggler"
       type="button"
