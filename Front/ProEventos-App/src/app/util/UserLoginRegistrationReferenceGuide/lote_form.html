@@ -1,0 +1,37 @@
+LOTES FORM
+
+<form class="col">
+	<div >
+		<fieldset  class="form-group">
+			<legend class="d-flex justify-content-between capitalize">
+				Nome do Lote
+				<button class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex" tooltip="Excluir Lote" [adaptivePosition]="false" placement="left" [delay]="500">
+					<i class="fa fa-window-close my-1"></i>
+					<b class="ml-1 d-none d-sm-block">Excluir</b>
+				</button>
+			</legend>
+			<div class="row">
+				<div class="form-group col-md-4">
+					<label>Nome</label>
+					<input type="text" class="form-control" placeholder="Lote">
+				</div>
+				<div class="form-group col-md-4">
+					<label>Quantidade</label>
+					<input type="text" class="form-control" placeholder="000">
+				</div>
+				<div class="form-group col-md-4">
+					<label>Preço</label>
+					<input type="text" class="form-control" placeholder="R$ 0,00">
+				</div>
+				<div class="form-group col-md-4">
+					<label>Data Início</label>
+					<input type="text" class="form-control" placeholder="01/01/2021">
+				</div>
+				<div class="form-group col-md-4">
+					<label>Data Fim</label>
+					<input type="text" class="form-control" placeholder="01/01/2021">
+				</div>
+			</div>
+		</fieldset>
+	</div>
+</form>
