@@ -15,7 +15,7 @@
         <input
           type="text"
           class="form-control"
-          placeholder="Filtrar por Tema e Local"
+          placeholder="por Tema e Local"
           [(ngModel)]="filtroLista"
         />
       </div>
@@ -31,7 +31,7 @@
   <table class="table table-striped">
     <thead class="thead-dark">
       <tr>
-        <th>
+        <th class="d-none d-md-table-cell">
           <button
             type="button"
             class="btn btn-outline-light btn-sm"
@@ -45,16 +45,16 @@
         </th>
         <th>#</th>
         <th>Tema</th>
-        <th>Local</th>
+        <th class="d-none d-md-table-cell">Local</th>
         <th>Data</th>
-        <th>Qtd Pessoas</th>
-        <th>Lote</th>
+        <th class="d-none d-md-table-cell">Qtd Pessoas</th>
+        <th class="d-none d-md-table-cell">Lote</th>
         <th>Opções</th>
       </tr>
     </thead>
     <tbody *ngIf="eventosFiltrados && eventosFiltrados.length">
       <tr *ngFor="let evento of eventosFiltrados">
-        <td>
+        <td class="d-none d-md-table-cell">
           <img
             [collapse]="!exibirImagem"
             [isAnimated]="true"
@@ -67,22 +67,14 @@
         </td>
         <td>{{ evento.id }}</td>
         <td>{{ evento.tema }}</td>
-        <td>{{ evento.local }}</td>
+        <td class="d-none d-md-table-cell">{{ evento.local }}</td>
         <td>{{ evento.dataEvento | DateTimeFormat }}</td>
-        <td>{{ evento.qtdPessoas }}</td>
-        <td>{{ evento.lotes[0].nome }}</td>
+        <td class="d-none d-md-table-cell">{{ evento.qtdPessoas }}</td>
+        <td class="d-none d-md-table-cell">{{ evento.lotes[0].nome }}</td>
         <td>
           <button
             type="button"
-            class="btn btn-primary btn-sm mr-2"
-            tooltip="Editar"
-          >
-            <i class="fa fa-edit"></i>
-            <!-- Editar -->
-          </button>
-          <button
-            type="button"
-            class="btn btn-danger btn-sm"
+            class="btn btn-danger btn-lg"
             tooltip="Excluir"
             (click)="openModal(template)"
           >
