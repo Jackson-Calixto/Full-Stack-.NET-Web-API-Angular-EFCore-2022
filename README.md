@@ -233,3 +233,7 @@ IntelliSense for CSS class names in HTML - Zignd
 
 Adding sub component, must be in project folder which contains package.json
 ng g c components\eventos\evento-detalhe --module app
+
+Good tip to validate form.
+<p>form.value: {{form.value | json}}</p>
+<p>form.status: {{form.status | json}}</p>

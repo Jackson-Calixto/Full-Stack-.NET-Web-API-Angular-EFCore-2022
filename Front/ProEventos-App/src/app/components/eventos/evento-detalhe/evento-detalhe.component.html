@@ -1,23 +1,26 @@
 <div class="card rounded shadow-sm">
   <form [formGroup]="form">
     <div class="p-3">
+      <!-- <p>form.value: {{form.value | json}}</p>
+      <p>form.status: {{form.status | json}}</p> -->
       <div class="form-row">
         <div class="form-group col-md-12">
           <label>Tema</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': form.get('tema')?.errors && form.get('tema')?.touched}"
+            [ngClass]="{'is-invalid': f.tema.errors && f.tema.touched}"
             formControlName="tema"
             placeholder="Insira o Tema"
             />
-          <div *ngIf="form.get('tema')?.hasError('required')" class="invalid-feedback">
+          <div *ngIf="f.tema.errors?.required
+          " class="invalid-feedback">
             Tema é obrigatório...
           </div>
-          <div *ngIf="form.get('tema')?.hasError('minlength')" class="invalid-feedback">
+          <div *ngIf="f.tema.errors?.minlength" class="invalid-feedback">
             Tema deve ter ao menos 4 caracteres...
           </div>
-          <div *ngIf="form.get('tema')?.hasError('maxlength')" class="invalid-feedback">
+          <div *ngIf="f.tema.errors?.maxlength" class="invalid-feedback">
             Tema deve ter no máximo 50 caracteres...
           </div>
         </div>
@@ -28,7 +31,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': form.get('local')?.errors && form.get('local')?.touched}"
+            [ngClass]="{'is-invalid': f.local.errors && f.local.touched}"
             formControlName="local"
             placeholder=""
           />
@@ -41,7 +44,7 @@
           <input
             type="datetime"
             class="form-control"
-            [ngClass]="{'is-invalid': form.get('dataEvento')?.errors && form.get('dataEvento')?.touched}"
+            [ngClass]="{'is-invalid': f.dataEvento.errors && f.dataEvento.touched}"
             formControlName="dataEvento"
             placeholder=""
           />
@@ -56,7 +59,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': form.get('qtdPessoas')?.errors && form.get('qtdPessoas')?.touched}"
+            [ngClass]="{'is-invalid': f.qtdPessoas.errors && f.qtdPessoas.touched}"
             formControlName="qtdPessoas"
             placeholder=""
           />
@@ -69,7 +72,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': form.get('telefone')?.errors && form.get('telefone')?.touched}"
+            [ngClass]="{'is-invalid': f.telefone.errors && f.telefone.touched}"
             formControlName="telefone"
             placeholder="(00) 90000-0000"
           />
@@ -82,7 +85,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': form.get('email')?.errors && form.get('email')?.touched}"
+            [ngClass]="{'is-invalid': f.email.errors && f.email.touched}"
             formControlName="email"
             placeholder="e-mail"
           />
@@ -95,7 +98,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': form.get('imagemURL')?.errors && form.get('imagemURL')?.touched}"
+            [ngClass]="{'is-invalid': f.imagemURL.errors && f.imagemURL.touched}"
             formControlName="imagemURL"
             placeholder="imagem"
           />
@@ -107,10 +110,11 @@
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary mr-auto border">
+        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
+          
           Cancelar Alteração
         </button>
-        <button class="btn btn-success">
+        <button class="btn btn-success" [disabled]="!form.valid">
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Salvar Evento
         </button>
