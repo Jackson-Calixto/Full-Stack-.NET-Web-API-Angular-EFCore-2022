@@ -89,7 +89,12 @@
             [ngClass]="{ 'is-invalid': f.confirmarSenha.errors && f.confirmarSenha.touched }"
             placeholder="Confirme a Senha"
           />
-          <div class="invalid-feedback">Confirmar Senha é obrigatório...</div>
+          <div *ngIf="f.confirmarSenha.errors?.required" class="invalid-feedback">
+            Confirmar Senha é obrigatório...
+          </div>
+          <div *ngIf="f.confirmarSenha.errors?.mustMatch" class="invalid-feedback">
+            Repita a mesma Senha...
+          </div>
         </div>
       </div>
       <div class="form-row p-1 mb-3">
