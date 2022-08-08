@@ -237,3 +237,6 @@ ng g c components\eventos\evento-detalhe --module app
 Good tip to validate form.
 <p>form.value: {{form.value | json}}</p>
 <p>form.status: {{form.status | json}}</p>
+
+DTOs with AutoMapper
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
