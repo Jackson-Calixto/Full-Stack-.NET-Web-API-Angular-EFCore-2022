@@ -13,7 +13,7 @@
 
   <div class="col-md-6">
     <!--FORM VAI AQUI-->
-    <form class="p-1">
+    <form  [formGroup]="form" class="p-1">
       <div class="pb-2 d-block d-md-none">
         <h3 class="border-bottom">Cadastro de Usuário</h3>
       </div>
@@ -23,16 +23,22 @@
           <input
             type="text"
             class="form-control"
+            formControlName="primeiroNome"
+            [ngClass]="{ 'is-invalid': f.primeiroNome.errors && f.primeiroNome.touched }"
             placeholder="Insira o Primeiro nome"
           />
+          <div class="invalid-feedback">Primeiro Nome é obrigatório...</div>
         </div>
         <div class="form-group col-sm-6">
           <label>Último nome</label>
           <input
             type="text"
             class="form-control"
+            formControlName="ultimoNome"
+            [ngClass]="{ 'is-invalid': f.ultimoNome.errors && f.ultimoNome.touched }"
             placeholder="Insira o Último nome"
           />
+          <div class="invalid-feedback">Último Nome é obrigatório...</div>
         </div>
       </div>
       <div class="form-group">
@@ -40,16 +46,22 @@
         <input
           class="form-control"
           type="text"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': f.email.errors && f.email.touched }"
           placeholder="Insira o Nome Completo"
         />
+        <div class="invalid-feedback">Email é obrigatório...</div>
       </div>
       <div class="form-group">
         <label for="">Usuario:</label>
         <input
           class="form-control"
           type="text"
+          formControlName="usuario"
+          [ngClass]="{ 'is-invalid': f.usuario.errors && f.usuario.touched }"
           placeholder="Insira o nome de Usuário"
         />
+        <div class="invalid-feedback">Usuario é obrigatório...</div>
       </div>
       <div class="form-row">
         <div class="form-group col-sm-6">
@@ -57,16 +69,27 @@
           <input
             class="form-control"
             type="password"
+            formControlName="senha"
+            [ngClass]="{ 'is-invalid': f.senha.errors && f.senha.touched }"
             placeholder="Digite uma Senha"
           />
+          <div *ngIf="f.senha.errors?.required" class="invalid-feedback">
+            Senha é obrigatório...
+          </div>
+          <div *ngIf="f.senha.errors?.minlength" class="invalid-feedback">
+            Senha deve ter ao menos 6 caracteres...
+          </div>
         </div>
         <div class="form-group col-sm-6">
           <label for="">Confirmar Senha:</label>
           <input
             class="form-control"
             type="password"
+            formControlName="confirmarSenha"
+            [ngClass]="{ 'is-invalid': f.confirmarSenha.errors && f.confirmarSenha.touched }"
             placeholder="Confirme a Senha"
           />
+          <div class="invalid-feedback">Confirmar Senha é obrigatório...</div>
         </div>
       </div>
       <div class="form-row p-1 mb-3">
@@ -75,22 +98,27 @@
             type="checkbox"
             class="custom-control-input"
             id="customCheck1"
+            formControlName="concordo"
+            [ngClass]="{ 'is-invalid': f.concordo.errors && f.concordo.touched }"
           />
           <label class="custom-control-label"
             >Eu concordo com os <a href="#">Termos de Uso</a>.</label
           >
+          <div class="invalid-feedback">Concordo é obrigatório...</div>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12">
-          <button class="btn btn-lg btn-success btn-block px-5">
+          <button class="btn btn-lg btn-success btn-block px-5" [disabled]="!form.valid">
             Registar
           </button>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12">
-          <a class="btn btn-link btn-block" routerLink="/user/login"> Já sou Cadastrado </a>
+          <a class="btn btn-link btn-block" routerLink="/user/login">
+            Já sou Cadastrado
+          </a>
         </div>
       </div>
     </form>

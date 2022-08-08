@@ -9,12 +9,11 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.tema.errors && f.tema.touched}"
+            [ngClass]="{ 'is-invalid': f.tema.errors && f.tema.touched }"
             formControlName="tema"
             placeholder="Insira o Tema"
-            />
-          <div *ngIf="f.tema.errors?.required
-          " class="invalid-feedback">
+          />
+          <div *ngIf="f.tema.errors?.required" class="invalid-feedback">
             Tema é obrigatório...
           </div>
           <div *ngIf="f.tema.errors?.minlength" class="invalid-feedback">
@@ -31,26 +30,24 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.local.errors && f.local.touched}"
+            [ngClass]="{ 'is-invalid': f.local.errors && f.local.touched }"
             formControlName="local"
             placeholder=""
           />
-          <div class="invalid-feedback">
-            Local é obrigatório...
-          </div>
+          <div class="invalid-feedback">Local é obrigatório...</div>
         </div>
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
           <input
             type="datetime"
             class="form-control"
-            [ngClass]="{'is-invalid': f.dataEvento.errors && f.dataEvento.touched}"
+            [ngClass]="{
+              'is-invalid': f.dataEvento.errors && f.dataEvento.touched
+            }"
             formControlName="dataEvento"
             placeholder=""
           />
-          <div class="invalid-feedback">
-            Data e Hora é obrigatório...
-          </div>
+          <div class="invalid-feedback">Data e Hora é obrigatório...</div>
         </div>
       </div>
       <div class="form-row">
@@ -59,59 +56,59 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.qtdPessoas.errors && f.qtdPessoas.touched}"
+            [ngClass]="{
+              'is-invalid': f.qtdPessoas.errors && f.qtdPessoas.touched
+            }"
             formControlName="qtdPessoas"
             placeholder=""
           />
-          <div class="invalid-feedback">
-            Qtd Pessoas é obrigatório...
-          </div>
+          <div class="invalid-feedback">Qtd Pessoas é obrigatório...</div>
         </div>
         <div class="form-group col-md-2">
           <label>Telefone</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.telefone.errors && f.telefone.touched}"
+            [ngClass]="{
+              'is-invalid': f.telefone.errors && f.telefone.touched
+            }"
             formControlName="telefone"
             placeholder="(00) 90000-0000"
           />
-          <div class="invalid-feedback">
-            Telefone é obrigatório...
-          </div>
+          <div class="invalid-feedback">Telefone é obrigatório...</div>
         </div>
         <div class="form-group col-md-4">
           <label>e-mail</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.email.errors && f.email.touched}"
+            [ngClass]="{ 'is-invalid': f.email.errors && f.email.touched }"
             formControlName="email"
             placeholder="e-mail"
           />
-          <div class="invalid-feedback">
-            e-mail é obrigatório...
-          </div>
+          <div class="invalid-feedback">e-mail é obrigatório...</div>
         </div>
         <div class="form-group col-md-4">
           <label>Imagem</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': f.imagemURL.errors && f.imagemURL.touched}"
+            [ngClass]="{
+              'is-invalid': f.imagemURL.errors && f.imagemURL.touched
+            }"
             formControlName="imagemURL"
             placeholder="imagem"
           />
-          <div class="invalid-feedback">
-            Imagem é obrigatório...
-          </div>
+          <div class="invalid-feedback">Imagem é obrigatório...</div>
         </div>
       </div>
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
-          
+        <button
+          class="btn btn-outline-secondary mr-auto border"
+          (click)="resetForm()"
+        >
           Cancelar Alteração
         </button>
         <button class="btn btn-success" [disabled]="!form.valid">
