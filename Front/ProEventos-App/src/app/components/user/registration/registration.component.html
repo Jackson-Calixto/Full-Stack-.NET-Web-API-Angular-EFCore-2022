@@ -25,30 +25,30 @@
             class="form-control"
             formControlName="primeiroNome"
             [ngClass]="{ 'is-invalid': f.primeiroNome.errors && f.primeiroNome.touched }"
-            placeholder="Insira o Primeiro nome"
+            placeholder="Informe o Primeiro Nome"
           />
           <div class="invalid-feedback">Primeiro Nome é obrigatório...</div>
         </div>
         <div class="form-group col-sm-6">
-          <label>Último nome</label>
+          <label>Último Nome</label>
           <input
             type="text"
             class="form-control"
             formControlName="ultimoNome"
             [ngClass]="{ 'is-invalid': f.ultimoNome.errors && f.ultimoNome.touched }"
-            placeholder="Insira o Último nome"
+            placeholder="Informe o Último Nome"
           />
           <div class="invalid-feedback">Último Nome é obrigatório...</div>
         </div>
       </div>
       <div class="form-group">
-        <label for="">Email:</label>
+        <label for="">E-mail:</label>
         <input
           class="form-control"
           type="text"
           formControlName="email"
           [ngClass]="{ 'is-invalid': f.email.errors && f.email.touched }"
-          placeholder="Insira o Nome Completo"
+          placeholder="Informe o E-mail"
         />
         <div class="invalid-feedback">Email é obrigatório...</div>
       </div>
@@ -59,7 +59,7 @@
           type="text"
           formControlName="usuario"
           [ngClass]="{ 'is-invalid': f.usuario.errors && f.usuario.touched }"
-          placeholder="Insira o nome de Usuário"
+          placeholder="Informe o nome de Usuário"
         />
         <div class="invalid-feedback">Usuario é obrigatório...</div>
       </div>
