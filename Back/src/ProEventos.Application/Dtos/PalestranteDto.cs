@@ -14,6 +14,10 @@ namespace ProEventos.Application.Dtos
         public string Telefone { get; set; }
         public string Email { get; set; }
         public IEnumerable<RedeSocialDto> RedesSociais { get; set; }
+<<<<<<< HEAD
         public IEnumerable<PalestranteDto> Palestrantes { get; set; }        
+=======
+        public IEnumerable<PalestranteDto> Palestrantes { get; set; }
+>>>>>>> 2de361f085fef2af909c7d275e8fd20568873b0d
     }
 }
