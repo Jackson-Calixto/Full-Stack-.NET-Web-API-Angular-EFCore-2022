@@ -83,7 +83,26 @@ export class EventoListaComponent implements OnInit {
 
   confirm(): void {
     this.modalRef.hide();
-    this.toastr.success('O evento foi excluido com sucesso...', 'Excluido!');
+    this.spinner.show();
+
+    this.eventoService.deleteEvento(this.eventoId).subscribe(
+      (result: any) => {
+        if (result.message === "Deletado"){
+          this.toastr.success('O evento foi excluido com sucesso.', 'Excluido!');
+          this.spinner.hide();
+          this.getEventos();
+        }
+      },
+      (error: any) => {
+        console.log(error);
+        this.toastr.error(
+          `Erro ao tentar excluir o evento código ${this.eventoId}.`,
+          'Erro!'
+        );
+        this.spinner.hide();
+      },
+      () => {}
+    );
   }
 
   decline(): void {
