@@ -5,6 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Evento } from '@app/models/Evento';
+import { EventoService } from '@app/services/evento.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 @Component({
@@ -14,6 +17,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 })
 export class EventoDetalheComponent implements OnInit {
   form!: FormGroup;
+  evento = {} as Evento;
 
   get f(): any {
     return this.form.controls;
@@ -31,13 +35,33 @@ export class EventoDetalheComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private localeService: BsLocaleService
+    private localeService: BsLocaleService,
+    private router: ActivatedRoute,
+    private eventoService: EventoService
   ) {
     this.localeService.use('pt-br');
   }
 
+  carregarEvento() {
+    const eventoIdParam = this.router.snapshot.paramMap.get('id');
+
+    if (eventoIdParam !== null) {
+      this.eventoService.getEvento(+eventoIdParam).subscribe(
+        (evento: Evento) => {
+          this.evento = {...evento};
+          this.form.patchValue(this.evento);
+        },
+        (error: any) => {
+          console.error(error);
+        },
+        () => {},
+      );
+    }
+  }
+
   ngOnInit(): void {
     this.validation();
+    this.carregarEvento();
   }
 
   validation() {
