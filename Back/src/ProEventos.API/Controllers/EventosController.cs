@@ -24,7 +24,7 @@ namespace ProEventos.API.Controllers
             try
             {
                 var eventos = await _eventoService.GetAllEventosAsync(true);
-                if (eventos == null) return NotFound("Nenhum evento encontrado.");
+                if (eventos == null) return NoContent();
 
                 return Ok(eventos);
             }
@@ -40,7 +40,7 @@ namespace ProEventos.API.Controllers
             try
             {
                 var evento = await _eventoService.GetEventosByIdAsync(id, true);
-                if (evento == null) return NotFound("Nenhum evento encontrado por id.");
+                if (evento == null) return NoContent();
 
                 return Ok(evento);
             }
@@ -56,7 +56,7 @@ namespace ProEventos.API.Controllers
             try
             {
                 var eventos = await _eventoService.GetAllEventosByTemaAsync(tema, true);
-                if (eventos == null) return NotFound("Nenhum evento encontrado por tema.");
+                if (eventos == null) return NoContent();
 
                 return Ok(eventos);
             }
@@ -106,9 +106,12 @@ namespace ProEventos.API.Controllers
         {
             try
             {
+                var evento = await _eventoService.GetEventosByIdAsync(id, true);
+                if (evento == null) return NoContent();
+
                 return await _eventoService.DeleteEvento(id)? 
-                    Ok("Evento deletado."):
-                    BadRequest("Evento não deletado.");
+                    Ok("Evento Deletado."):
+                    throw new Exception("Ocorreu um problema não específico ao tentar deletar Evento.");
             }
             catch (Exception ex)
             {                               
