@@ -240,3 +240,5 @@ Good tip to validate form.
 
 DTOs with AutoMapper
 dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
+
+Tabnine AI Autocomplete for Javascript, Python, Typescript, PHP, Go, Java, Ruby & more - TabNine

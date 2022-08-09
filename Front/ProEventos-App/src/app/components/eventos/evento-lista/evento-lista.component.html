@@ -71,7 +71,7 @@
             type="button"
             class="btn btn-danger btn-lg"
             tooltip="Excluir"
-            (click)="openModal(template)"
+            (click)="openModal($event, template, evento.id)"
           >
             <i class="fa fa-trash"></i>
             <!-- Excluir -->
@@ -93,7 +93,7 @@
 
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Tem certeza que deseja excluir esse evento?</p>
+    <p>Tem certeza que deseja excluir o evento código {{this.eventoId}}?</p>
     <button type="button" class="btn btn-default" (click)="confirm()">
       Sim
     </button>

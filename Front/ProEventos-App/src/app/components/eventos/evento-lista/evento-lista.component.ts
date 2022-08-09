@@ -21,6 +21,7 @@ export class EventoListaComponent implements OnInit {
   public marginImg = 2;
   public exibirImagem = true;
   private filtroListado = '';
+  public eventoId = 0;
 
   filtrarEventos(filtrarPor: string): Evento[] {
     filtrarPor = filtrarPor.toLowerCase();
@@ -74,7 +75,9 @@ export class EventoListaComponent implements OnInit {
     });
   }
 
-  openModal(template: TemplateRef<any>) {
+  openModal(event: any, template: TemplateRef<any>, eventoId: number) {
+    event.stopPropagation();
+    this.eventoId = eventoId;
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
