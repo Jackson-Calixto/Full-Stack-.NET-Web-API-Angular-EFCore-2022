@@ -29,6 +29,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { DatePipe } from '@angular/common';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -69,7 +70,7 @@ defineLocale('pt-br', ptBrLocale);
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [EventoService],
+  providers: [EventoService, DatePipe],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

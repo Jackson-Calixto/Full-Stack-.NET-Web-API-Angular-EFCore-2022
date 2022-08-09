@@ -42,6 +42,7 @@
             type="datetime"
             class="form-control"
             [ngClass]="cssValidator(f.dataEvento)"
+            value="{{evento.dataEvento | DateTimeFormat}}"
             formControlName="dataEvento"
             placeholder=""
             bsDatepicker
