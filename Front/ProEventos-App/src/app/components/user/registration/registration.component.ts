@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorField } from '@app/helpers/ValidatorField';
 
 @Component({
@@ -36,5 +36,9 @@ export class RegistrationComponent implements OnInit {
       confirmarSenha: ['', Validators.required],
       concordo: ['', [Validators.required, Validators.requiredTrue]],
     }, formOptions);
+  }
+
+  cssValidator(campoForm: FormControl){
+    return {'is-invalid': campoForm.errors && campoForm.touched};
   }
 }
