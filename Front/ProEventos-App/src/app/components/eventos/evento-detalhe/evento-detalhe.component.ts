@@ -24,6 +24,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EventoDetalheComponent implements OnInit {
   form!: FormGroup;
   evento = {} as Evento;
+  estadoSalvar: string = 'post';
 
   get f(): any {
     return this.form.controls;
@@ -56,6 +57,9 @@ export class EventoDetalheComponent implements OnInit {
 
     if (eventoIdParam !== null) {
       this.spinner.show();
+
+      this.estadoSalvar = 'put';
+
       this.eventoService.GetEventoById(+eventoIdParam).subscribe(
         (evento: Evento) => {
           if (evento) {
@@ -124,17 +128,31 @@ export class EventoDetalheComponent implements OnInit {
     this.spinner.show();
     if (this.form.valid) {
       this.dateFix('dataEvento');
-      this.evento = {...this.form.value};
 
-      this.eventoService.PostEvento(this.evento).subscribe(
-        () => this.toastr.success('Evento salvo com sucesso', 'Sucesso'),
-        (err) => {
-          console.log(err);
-          this.spinner.hide();
-          this.toastr.error(err.error.message, 'Ocorreu um erro');
-        },
-        () => this.spinner.hide()
-      );
+      if (this.estadoSalvar === 'post')
+      {
+        this.evento = {...this.form.value};
+        this.eventoService.PostEvento(this.evento).subscribe(
+          () => this.toastr.success('Evento inserido com sucesso', 'Sucesso'),
+          (err) => {
+            console.log(err);
+            this.spinner.hide();
+            this.toastr.error(err.error.message, 'Erro ao inserir!');
+          },
+          () => this.spinner.hide()
+        );
+      } else {
+        this.evento = {id: this.evento.id,...this.form.value};
+        this.eventoService.PutEvento(this.evento.id, this.evento).subscribe(
+          () => this.toastr.success('Evento atualizado com sucesso', 'Sucesso'),
+          (err) => {
+            console.log(err);
+            this.spinner.hide();
+            this.toastr.error(err.error.message, 'Erro ao atualizar!');
+          },
+          () => this.spinner.hide()
+        );
+      }
     }
   }
 }
