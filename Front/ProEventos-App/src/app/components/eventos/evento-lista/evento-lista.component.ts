@@ -61,7 +61,7 @@ export class EventoListaComponent implements OnInit {
   }
 
   public getEventos(): void {
-    this.eventoService.getEventos().subscribe({
+    this.eventoService.GetEventos().subscribe({
       next: (eventos: Evento[]) => {
         this.eventos = eventos;
         this.eventosFiltrados = this.eventos;
@@ -85,10 +85,13 @@ export class EventoListaComponent implements OnInit {
     this.modalRef.hide();
     this.spinner.show();
 
-    this.eventoService.deleteEvento(this.eventoId).subscribe(
+    this.eventoService.DeleteEvento(this.eventoId).subscribe(
       (result: any) => {
-        if (result.message === "Deletado"){
-          this.toastr.success('O evento foi excluido com sucesso.', 'Excluido!');
+        if (result.message === 'Deletado') {
+          this.toastr.success(
+            'O evento foi excluido com sucesso.',
+            'Excluido!'
+          );
           this.spinner.hide();
           this.getEventos();
         }

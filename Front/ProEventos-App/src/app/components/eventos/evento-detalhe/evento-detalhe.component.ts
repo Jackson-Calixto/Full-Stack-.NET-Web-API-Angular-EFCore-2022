@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -55,16 +56,18 @@ export class EventoDetalheComponent implements OnInit {
 
     if (eventoIdParam !== null) {
       this.spinner.show();
-      this.eventoService.getEvento(+eventoIdParam).subscribe(
+      this.eventoService.GetEventoById(+eventoIdParam).subscribe(
         (evento: Evento) => {
           if (evento) {
             this.evento = { ...evento };
             this.form.patchValue(this.evento);
             this.form.controls['dataEvento'].setValue(
-            this.datePipe.transform(this.evento.dataEvento, 'dd/MM/yyyy HH:mm')
+              this.datePipe.transform(
+                this.evento.dataEvento,
+                'dd/MM/yyyy HH:mm'
+              )
             );
-          }
-          else this.toastr.error('Evento inexistente!', 'Erro!');
+          } else this.toastr.error('Evento inexistente!', 'Erro!');
         },
         (error: any) => {
           this.spinner.hide();
@@ -106,5 +109,32 @@ export class EventoDetalheComponent implements OnInit {
 
   cssValidator(campoForm: FormControl) {
     return { 'is-invalid': campoForm.errors && campoForm.touched };
+  }
+
+  dateFix(dt: string){
+    var dtc = this.form.controls[dt];
+
+    if (!(dtc.value instanceof Date)) {
+      var dts = dtc.value.split('/');
+      dtc.setValue(new Date(`${dts[1]}/${dts[0]}/${dts[2]}`));
+    }
+  }
+
+  salvarAlteracao() {
+    this.spinner.show();
+    if (this.form.valid) {
+      this.dateFix('dataEvento');
+      this.evento = {...this.form.value};
+
+      this.eventoService.PostEvento(this.evento).subscribe(
+        () => this.toastr.success('Evento salvo com sucesso', 'Sucesso'),
+        (err) => {
+          console.log(err);
+          this.spinner.hide();
+          this.toastr.error(err.error.message, 'Ocorreu um erro');
+        },
+        () => this.spinner.hide()
+      );
+    }
   }
 }
