@@ -242,3 +242,12 @@ DTOs with AutoMapper
 dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
 
 Tabnine AI Autocomplete for Javascript, Python, Typescript, PHP, Go, Java, Ruby & more - TabNine
+
+Chrome Developer Tools
+user = {nome: "Vini", telefone: 32143214}
+user.nome
+user['nome']
+
+service = {post: () => console.log('post')}
+service.post()
+service['post']()

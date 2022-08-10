@@ -24,7 +24,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EventoDetalheComponent implements OnInit {
   form!: FormGroup;
   evento = {} as Evento;
-  estadoSalvar: string = 'post';
+  estadoSalvar = 'post';
 
   get f(): any {
     return this.form.controls;
@@ -115,7 +115,7 @@ export class EventoDetalheComponent implements OnInit {
     return { 'is-invalid': campoForm.errors && campoForm.touched };
   }
 
-  dateFix(dt: string){
+  dateFix(dt: string) {
     var dtc = this.form.controls[dt];
 
     if (!(dtc.value instanceof Date)) {
@@ -129,30 +129,20 @@ export class EventoDetalheComponent implements OnInit {
     if (this.form.valid) {
       this.dateFix('dataEvento');
 
-      if (this.estadoSalvar === 'post')
-      {
-        this.evento = {...this.form.value};
-        this.eventoService.PostEvento(this.evento).subscribe(
-          () => this.toastr.success('Evento inserido com sucesso', 'Sucesso'),
-          (err) => {
-            console.log(err);
-            this.spinner.hide();
-            this.toastr.error(err.error.message, 'Erro ao inserir!');
-          },
-          () => this.spinner.hide()
-        );
-      } else {
-        this.evento = {id: this.evento.id,...this.form.value};
-        this.eventoService.PutEvento(this.evento.id, this.evento).subscribe(
-          () => this.toastr.success('Evento atualizado com sucesso', 'Sucesso'),
-          (err) => {
-            console.log(err);
-            this.spinner.hide();
-            this.toastr.error(err.error.message, 'Erro ao atualizar!');
-          },
-          () => this.spinner.hide()
-        );
-      }
+      this.evento =
+        this.estadoSalvar === 'post'
+          ? { ...this.form.value }
+          : { id: this.evento.id, ...this.form.value };
+
+      (this.eventoService as any)[this.estadoSalvar](this.evento).subscribe(
+        () => this.toastr.success('Evento salvo com sucesso.', 'Sucesso'),
+        (err: any) => {
+          console.log(err);
+          this.spinner.hide();
+          this.toastr.error('Erro ao salvar Evento.', 'Erro!');
+        },
+        () => this.spinner.hide()
+      );
     }
   }
 }
