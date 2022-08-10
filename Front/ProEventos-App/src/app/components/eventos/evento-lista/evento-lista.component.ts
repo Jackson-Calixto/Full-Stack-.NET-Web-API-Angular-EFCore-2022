@@ -85,14 +85,13 @@ export class EventoListaComponent implements OnInit {
     this.modalRef.hide();
     this.spinner.show();
 
-    this.eventoService.DeleteEvento(this.eventoId).subscribe(
+    this.eventoService.delete(this.eventoId).subscribe(
       (result: any) => {
         if (result.message === 'Deletado') {
           this.toastr.success(
             'O evento foi excluido com sucesso.',
             'Excluido!'
           );
-          this.spinner.hide();
           this.getEventos();
         }
       },
@@ -102,10 +101,8 @@ export class EventoListaComponent implements OnInit {
           `Erro ao tentar excluir o evento código ${this.eventoId}.`,
           'Erro!'
         );
-        this.spinner.hide();
-      },
-      () => {}
-    );
+      }
+    ).add(() => this.spinner.hide());
   }
 
   decline(): void {
