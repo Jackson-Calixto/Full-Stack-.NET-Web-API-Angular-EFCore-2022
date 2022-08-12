@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ProEventos.Application.Contratos;
@@ -73,9 +74,53 @@ namespace ProEventos.Application
             }        
         }
 
-        public Task<LoteDto> SaveLote(int eventoId, LoteDto[] models)
+        public async Task AddLote(int eventoId,LoteDto model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var lote = _mapper.Map<Lote>(model);
+                lote.EventoId = eventoId;
+
+                _geralPersist.Add<Lote>(lote);
+                
+                await _geralPersist.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception(ex.Message);
+            }
         }
+        public async Task<LoteDto[]> SaveLotes(int eventoId, LoteDto[] models)
+        {
+             try
+            {
+                var lotes = await _lotePersist.GetLotesByEventoIdAsync(eventoId);
+                if (lotes == null) return null;
+
+                foreach (var model in models){
+
+                    if (model.Id ==0){
+                        await AddLote(eventoId, model);
+                    } else {
+                        var lote = lotes.FirstOrDefault(lote => lote.Id == model.Id);
+                        model.EventoId = eventoId;
+
+                        _mapper.Map(model, lotes);
+                        _geralPersist.Update<Lote>(lote);
+                        await _geralPersist.SaveChangesAsync();
+                    }
+                }
+
+                var retorno = await _lotePersist.GetLotesByEventoIdAsync(eventoId);
+                
+                return _mapper.Map<LoteDto[]>(retorno);
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception(ex.Message);
+            }
+       }
     }
 }

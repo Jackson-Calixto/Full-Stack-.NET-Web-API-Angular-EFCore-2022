@@ -40,7 +40,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var lote = await _loteService.SaveLote(eventoId, models);
+                var lote = await _loteService.SaveLotes(eventoId, models);
                 if (lote == null) return BadRequest("Erro ao tentar atualizar lote.");
 
                 return Ok(lote);
