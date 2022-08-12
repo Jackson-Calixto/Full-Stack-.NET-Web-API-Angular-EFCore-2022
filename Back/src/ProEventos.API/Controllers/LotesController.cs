@@ -23,7 +23,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var lotes = await _loteService.GetLotesByIdAsync(eventoId, true);
+                var lotes = await _loteService.GetLotesByEventoIdAsync(eventoId);
                 if (lotes == null) return NoContent();
 
                 return Ok(lotes);
@@ -40,7 +40,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var lote = await _loteService.UpdateLote(eventoId, models);
+                var lote = await _loteService.SaveLote(eventoId, models);
                 if (lote == null) return BadRequest("Erro ao tentar atualizar lote.");
 
                 return Ok(lote);
@@ -57,10 +57,10 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var lote = await _loteService.GetLotesByIdAsync(loteId, true);
+                var lote = await _loteService.GetLoteByIdAsync(eventoId, loteId);
                 if (lote == null) return NoContent();
 
-                return await _loteService.DeleteLote(loteId)? 
+                return await _loteService.DeleteLote(eventoId, loteId)? 
                     Ok(new {message = "Deletado"}):
                     throw new Exception("Ocorreu um problema não específico ao tentar deletar Lote.");
             }

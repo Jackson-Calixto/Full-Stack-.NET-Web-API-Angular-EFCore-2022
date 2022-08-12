@@ -11,7 +11,7 @@ namespace ProEventos.Application.Contratos
     {
         Task<LoteDto> SaveLote(int eventoId, LoteDto[] models);
         Task<bool> DeleteLote(int eventoId, int loteId);
-        Task<Lote[]> GetLotesByEventoIdAsync(int eventoId);
-        Task<Lote> GetLoteByIdAsync(int eventoId, int loteId);
+        Task<LoteDto[]> GetLotesByEventoIdAsync(int eventoId);
+        Task<LoteDto> GetLoteByIdAsync(int eventoId, int loteId);
     }
 }
