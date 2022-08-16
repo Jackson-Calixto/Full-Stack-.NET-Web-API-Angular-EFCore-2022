@@ -130,7 +130,7 @@
     <p>Clique em Lote para adicionar e preencher novos Lotes</p>
     <div class="form-row p-1">
       <div class="col">
-        <div>
+        <div formArrayName="lotes" *ngFor="let lote of lotes.controls; let i=index">
           <fieldset class="form-group">
             <legend class="d-flex justify-content-between capitalize">
               <button
@@ -196,7 +196,7 @@
         </div>
       </div>
     </div>
-    <button class="d-flex btn btn-outline-primary">
+    <button class="d-flex btn btn-outline-primary" (click)="adicionarLote()">
       <i class="fa fa-plus-circle my-1"></i>
       <b class="ml-1">Lote</b>
     </button>
