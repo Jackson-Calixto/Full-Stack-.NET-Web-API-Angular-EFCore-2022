@@ -129,9 +129,12 @@
     </div>
     <p>Clique em Lote para adicionar e preencher novos Lotes</p>
     <div class="form-row p-1">
-      <div class="col">
-        <div formArrayName="lotes" *ngFor="let lote of lotes.controls; let i=index">
-          <fieldset class="form-group">
+      <div [formGroup]="form" class="col">
+        <div
+          formArrayName="lotes"
+          *ngFor="let lote of lotes.controls; let i = index"
+        >
+          <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
               <button
                 class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
@@ -151,6 +154,7 @@
                   type="text"
                   class="form-control"
                   formControlName="nome"
+                  [ngClass]="cssValidator(lotes.get(i + '.nome'))"
                   placeholder="Lote"
                 />
               </div>
@@ -160,6 +164,7 @@
                   type="text"
                   class="form-control"
                   formControlName="quantidade"
+                  [ngClass]="cssValidator(lotes.get(i + '.quantidade'))"
                   placeholder="000"
                 />
               </div>
@@ -170,6 +175,7 @@
                   currencyMask
                   class="form-control"
                   formControlName="preco"
+                  [ngClass]="cssValidator(lotes.get(i + '.preco'))"
                   placeholder="R$ 0,00"
                 />
               </div>
@@ -179,6 +185,7 @@
                   type="text"
                   class="form-control"
                   formControlName="dataInicio"
+                  [ngClass]="cssValidator(lotes.get(i + '.dataInicio'))"
                   placeholder="01/01/2019"
                 />
               </div>
@@ -188,6 +195,7 @@
                   type="text"
                   class="form-control"
                   formControlName="dataFim"
+                  [ngClass]="cssValidator(lotes.get(i + '.dataFim'))"
                   placeholder="01/01/2019"
                 />
               </div>

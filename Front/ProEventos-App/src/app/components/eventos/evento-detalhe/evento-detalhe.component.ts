@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  AbstractControlOptions,
   FormArray,
   FormBuilder,
   FormControl,
@@ -134,8 +135,8 @@ export class EventoDetalheComponent implements OnInit {
     this.form.reset();
   }
 
-  cssValidator(campoForm: FormControl) {
-    return { 'is-invalid': campoForm.errors && campoForm.touched };
+  cssValidator(campoForm: FormControl | AbstractControl | null) {
+    return { 'is-invalid': campoForm?.errors && campoForm.touched };
   }
 
   dateFix(dt: string) {
