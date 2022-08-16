@@ -255,3 +255,16 @@ service['post']()
 
 Make addSelectionToNextFindMatch (Ctrl+D) case-sensitive
 Alt+C. This toggles case sensitivity of the find widget and for the Ctrl+D
+
+Debug C#.NET VS Code
+First Option:
+.NET Core Launche (Web)
+
+Second Option:
+dotnet watch run
+.NET Core Attach
+F5
+Select the process to attach to
+In this case "ProEventos.exe"
+
+
