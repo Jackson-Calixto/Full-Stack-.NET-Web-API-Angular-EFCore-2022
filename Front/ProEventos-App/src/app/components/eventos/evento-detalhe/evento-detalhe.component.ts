@@ -26,8 +26,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./evento-detalhe.component.scss'],
 })
 export class EventoDetalheComponent implements OnInit {
-  form!: FormGroup;
+  eventoId: any;
   evento = {} as Evento;
+  form!: FormGroup;
   estadoSalvar = 'post';
 
   get modoEditar() {
@@ -57,6 +58,7 @@ export class EventoDetalheComponent implements OnInit {
     private localeService: BsLocaleService,
     private activatedRoute: ActivatedRoute,
     private eventoService: EventoService,
+    private loteService: LoteService,
     private datePipe: DatePipe,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
@@ -66,14 +68,14 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   carregarEvento() {
-    const eventoIdParam = this.activatedRoute.snapshot.paramMap.get('id');
+    this.eventoId = this.activatedRoute.snapshot.paramMap.get('id');
 
-    if (eventoIdParam !== null) {
+    if (this.eventoId !== null || this.eventoId === 0) {
       this.spinner.show();
 
       this.estadoSalvar = 'put';
 
-      this.eventoService.GetEventoById(+eventoIdParam).subscribe(
+      this.eventoService.GetEventoById(this.eventoId).subscribe(
         (evento: Evento) => {
           if (evento) {
             this.evento = { ...evento };
@@ -153,7 +155,7 @@ export class EventoDetalheComponent implements OnInit {
     }
   }
 
-  salvarAlteracao() {
+  salvarEvento() {
     this.spinner.show();
     if (this.form.valid) {
       this.dateFix('dataEvento');
@@ -166,7 +168,7 @@ export class EventoDetalheComponent implements OnInit {
       (this.eventoService as any)[this.estadoSalvar](this.evento).subscribe(
         (eventoRetorno: Evento) => {
           this.toastr.success('Evento salvo com sucesso.', 'Sucesso');
-          this.router.navigate([`eventos/detalhe/${eventoRetorno.id}`])
+          this.router.navigate([`eventos/detalhe/${eventoRetorno.id}`]);
         },
         (err: any) => {
           console.log(err);
@@ -177,6 +179,25 @@ export class EventoDetalheComponent implements OnInit {
           this.spinner.hide();
         }
       );
+    }
+  }
+
+  salvarLote() {
+    this.spinner.show();
+    if (this.lotes.valid) {
+      this.loteService
+        .SaveLotes(this.eventoId, this.lotes.value)
+        .subscribe(
+          () => {
+            this.toastr.success('Lotes salvos com sucesso.', 'Sucesso');
+            this.router.navigate([`eventos/detalhe/${this.evento.id}`]);
+          },
+          (err: any) => {
+            console.error(err);
+            this.toastr.error('Erro ao salvar Lotes.', 'Erro!');
+          }
+        )
+        .add(() => this.spinner.hide());
     }
   }
 }
