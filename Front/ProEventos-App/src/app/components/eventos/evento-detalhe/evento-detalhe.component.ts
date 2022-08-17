@@ -9,7 +9,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DateTimeFormatPipe } from '@app/helpers/DateTimeFormat.pipe';
 import { Evento } from '@app/models/Evento';
 import { Lote } from '@app/models/Lote';
@@ -30,7 +30,11 @@ export class EventoDetalheComponent implements OnInit {
   evento = {} as Evento;
   estadoSalvar = 'post';
 
-  get lotes(): FormArray{
+  get modoEditar() {
+    return this.estadoSalvar === 'put';
+  }
+
+  get lotes(): FormArray {
     return this.form.get('lotes') as FormArray;
   }
 
@@ -51,17 +55,18 @@ export class EventoDetalheComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private localeService: BsLocaleService,
-    private router: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private eventoService: EventoService,
     private datePipe: DatePipe,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {
     this.localeService.use('pt-br');
   }
 
   carregarEvento() {
-    const eventoIdParam = this.router.snapshot.paramMap.get('id');
+    const eventoIdParam = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (eventoIdParam !== null) {
       this.spinner.show();
@@ -117,7 +122,7 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   adicionarLote() {
-    this.lotes.push(this.criarLote({id: 0} as Lote));
+    this.lotes.push(this.criarLote({ id: 0 } as Lote));
   }
 
   criarLote(lote: Lote): FormGroup {
@@ -159,13 +164,18 @@ export class EventoDetalheComponent implements OnInit {
           : { id: this.evento.id, ...this.form.value };
 
       (this.eventoService as any)[this.estadoSalvar](this.evento).subscribe(
-        () => this.toastr.success('Evento salvo com sucesso.', 'Sucesso'),
+        (eventoRetorno: Evento) => {
+          this.toastr.success('Evento salvo com sucesso.', 'Sucesso');
+          this.router.navigate([`eventos/detalhe/${eventoRetorno.id}`])
+        },
         (err: any) => {
           console.log(err);
           this.spinner.hide();
           this.toastr.error('Erro ao salvar Evento.', 'Erro!');
         },
-        () => this.spinner.hide()
+        () => {
+          this.spinner.hide();
+        }
       );
     }
   }
