@@ -88,6 +88,10 @@ export class EventoDetalheComponent implements OnInit {
                 'dd/MM/yyyy HH:mm'
               )
             );
+            this.evento.lotes.forEach((lote) => {
+              this.lotes.push(this.criarLote(lote));
+            });
+            //this.carregarLotes();
           } else this.toastr.error('Evento inexistente!', 'Erro!');
         },
         (error: any) => {
@@ -98,6 +102,23 @@ export class EventoDetalheComponent implements OnInit {
         () => this.spinner.hide()
       );
     }
+  }
+
+  carregarLotes() {
+    this.loteService
+      .GetLoteByEventoId(this.eventoId)
+      .subscribe(
+        (lotes: Lote[]) => {
+          lotes.forEach((lote) => {
+            this.lotes.push(this.criarLote(lote));
+          });
+        },
+        (err: any) => {
+          this.toastr.error('Erro ao tentar carregar Lotes!', 'Erro!');
+          console.error(err);
+        }
+      )
+      .add(() => this.spinner.hide());
   }
 
   ngOnInit(): void {
@@ -135,8 +156,8 @@ export class EventoDetalheComponent implements OnInit {
       nome: [lote.nome, Validators.required],
       quantidade: [lote.quantidade, Validators.required],
       preco: [lote.preco, Validators.required],
-      dataInicio: [lote.dataInicio],
-      dataFim: [lote.dataFim],
+      dataInicio: [new DateFormatPipe().transform(lote.dataInicio)],
+      dataFim: [new DateFormatPipe().transform(lote.dataFim)],
     });
   }
 
@@ -180,8 +201,14 @@ export class EventoDetalheComponent implements OnInit {
       //this.dateFix('dataFim');
 
       for (let i = 0; i < this.lotes.value.length; i++) {
-        this.lotes.value[i].dataInicio = new DateFormatPipe().transform(this.lotes.value[i].dataInicio, 'save');
-        this.lotes.value[i].dataFim = new DateFormatPipe().transform(this.lotes.value[i].dataFim, 'save');
+        this.lotes.value[i].dataInicio = new DateFormatPipe().transform(
+          this.lotes.value[i].dataInicio,
+          'save'
+        );
+        this.lotes.value[i].dataFim = new DateFormatPipe().transform(
+          this.lotes.value[i].dataFim,
+          'save'
+        );
       }
 
       this.loteService
@@ -198,9 +225,5 @@ export class EventoDetalheComponent implements OnInit {
         )
         .add(() => this.spinner.hide());
     }
-  }
-
-  onChangeDate(lote: Lote) {
-    lote.dataInicio = new DateFormatPipe().transform(lote.dataInicio);
   }
 }
