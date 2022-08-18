@@ -5,9 +5,30 @@ import { Constants } from '../util/constants';
 @Pipe({
   name: 'DateTimeFormat',
 })
-export class DateTimeFormatPipe extends DatePipe implements PipeTransform {
-  override transform(value: any, args?: any): any {
-    return super.transform(value, `${Constants.DATE_TIME_FMT}`);
+export class DateTimeFormatPipe implements PipeTransform {
+  transform(value: any, args?: any): any {
+    var datePipe = new DatePipe('en');
+
+    if (
+      !(value instanceof Date) &&
+      value !== undefined &&
+      value !== null &&
+      value.split('/').length == 3
+    ) {
+      const [date, time] = value.split(' ');
+      const [month, day, year] = date.split('/');
+      const [hours, minutes, seconds] = time.split(':');
+      const datetime = new Date(
+        +year,
+        month - 1,
+        +day,
+        +hours,
+        +minutes,
+        +seconds
+      );
+      value = datetime;
+    }
+    value = !args ? datePipe.transform(value, `${Constants.DATE_FMT}`) : value;
+    return value;
   }
 }
-

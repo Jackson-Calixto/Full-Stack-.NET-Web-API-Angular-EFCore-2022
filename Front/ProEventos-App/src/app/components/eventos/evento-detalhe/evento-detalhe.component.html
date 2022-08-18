@@ -120,8 +120,8 @@
 </div>
 
 <div class="card rounded shadow-sm mt-4" *ngIf="modoEditar">
-  <p>lotes.value: {{ lotes.value | json }}</p>
-  <p>lotes.status: {{ lotes.status | json }}</p>
+  <!-- <p>lotes.value: {{ lotes.value | json }}</p>
+  <p>lotes.status: {{ lotes.status | json }}</p> -->
   <div class="p-3">
     <div class="d-flex border-bottom">
       <h2 class="mr-auto">Lotes do Evento</h2>
@@ -136,8 +136,8 @@
           formArrayName="lotes"
           *ngFor="let lote of lotes.controls; let i = index"
         >
-        <p>lote.value: {{ lote.value | json }}</p>
-        <p>lote.status: {{ lote.status | json }}</p>
+          <!-- <p>lote.value: {{ lote.value | json }}</p>
+        <p>lote.status: {{ lote.status | json }}</p> -->
           <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
               <button
