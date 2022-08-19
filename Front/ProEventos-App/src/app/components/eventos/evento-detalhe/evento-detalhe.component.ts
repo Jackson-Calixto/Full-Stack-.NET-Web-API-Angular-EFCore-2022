@@ -35,6 +35,7 @@ export class EventoDetalheComponent implements OnInit {
   evento = {} as Evento;
   form!: FormGroup;
   estadoSalvar = 'post';
+  imagemURL = 'assets/upload.png';
 
   get modoEditar() {
     return this.estadoSalvar === 'put';

@@ -122,7 +122,7 @@
         </div>
       </form>
     </div>
-    <div class="card rounded shadow-sm mt-4" *ngIf="modoEditar">
+    <div class="card rounded shadow-sm mt-3" *ngIf="modoEditar">
       <!-- <p>lotes: {{ evento.lotes | json }}</p>
       <p>lotes.length: {{ lotes.value.length | json }}</p>
       <p>lotes.value: {{ lotes.value | json }}</p>
@@ -241,6 +241,81 @@
           >
             Salvar Lotes
           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4" style="padding-right: 0px;" *ngIf="modoEditar">
+    <div [formGroup]="form" class="card-evento-view shadow-sm">
+      <div class="form-row">
+        <div class="form-group m-0">
+          <input
+            type="file"
+            #file
+            class="form-control is-invalid"
+            placeholder=""
+            style="display: none"
+          />
+        </div>
+      </div>
+
+      <div class="card profile-card-2">
+        <div class="card-img-block">
+          <img
+            class="image"
+            [src]="imagemURL"
+            style="width: 100%;"
+            class="img-fluid"
+            (click)="file.click()"
+            alt="Card image cap"
+            tooltip="Uplaod de Nova Imagem"
+            [adaptivePosition]="false"
+            placement="bottom"
+          />
+        </div>
+
+        <div class="card-body pt-3">
+          <h4>{{ evento.tema }}</h4>
+
+          <p class="card-text">
+            <b>Local:</b> {{ evento.local }}
+
+            <br />
+
+            <b>Data:</b> {{ evento.dataEvento | DateFormat }}
+          </p>
+
+          <hr />
+
+          <p class="card-text">
+            <b>Contatos</b><br />
+
+            <small class="text-muted">Telefone: {{ evento.telefone }}</small>
+
+            <br />
+
+            <small class="text-muted">e-mail: {{ evento.email }}</small>
+          </p>
+
+          <p class="card-text">
+            Capacidade:
+
+            <small class="text-muted">{{ evento.qtdPessoas }}</small>
+          </p>
+
+          <div class="row">
+            <div class="icon-block col-md-8 iconesSociais">
+              <a href="">
+                <i class=""></i>
+              </a>
+            </div>
+
+            <!--div class="col-md-4 d-flex justify-content-center">
+
+              <a href="#" class="btn btn-outline-primary">Participar</a>
+
+            </div-->
+          </div>
         </div>
       </div>
     </div>
