@@ -1,4 +1,4 @@
-import { DatePipe, JsonPipe, KeyValuePipe } from '@angular/common';
+import { DatePipe, formatDate, JsonPipe, KeyValuePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import {
   AbstractControl,
@@ -31,7 +31,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EventoDetalheComponent implements OnInit {
   modalRef?: BsModalRef;
   eventoId: any;
-  loteAtual = {id: 0, nome:'', indice:0};
+  loteAtual = { id: 0, nome: '', indice: 0 };
   evento = {} as Evento;
   form!: FormGroup;
   estadoSalvar = 'post';
@@ -52,7 +52,17 @@ export class EventoDetalheComponent implements OnInit {
     return {
       isAnimated: true,
       adaptivePosition: true,
-      dateInputFormat: 'DD/MM/YYYY HH:mm',
+      dateInputFormat: 'dd/MM/yyyy HH:mm',
+      showTodayButton: true,
+      containerClass: 'theme-default',
+    };
+  }
+
+  get bsConfigLote() {
+    return {
+      isAnimated: true,
+      adaptivePosition: true,
+      dateInputFormat: 'DD/MM/YYYY',
       showTodayButton: true,
       containerClass: 'theme-default',
     };
@@ -73,6 +83,15 @@ export class EventoDetalheComponent implements OnInit {
     this.localeService.use('pt-br');
   }
 
+  dataEventoChange(data: Date) {
+    this.form.value.dataEvento = data;
+    this.evento.dataEvento = data;
+  }
+
+  dataInicioChange(data: any, field: any) {
+    field.dataInicio = new DateFormatPipe().transform(data, 'change');
+  }
+
   carregarEvento() {
     this.eventoId = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -86,12 +105,6 @@ export class EventoDetalheComponent implements OnInit {
           if (evento) {
             this.evento = { ...evento };
             this.form.patchValue(this.evento);
-            this.form.controls['dataEvento'].setValue(
-              this.datePipe.transform(
-                this.evento.dataEvento,
-                'dd/MM/yyyy HH:mm'
-              )
-            );
             this.evento.lotes.forEach((lote) => {
               this.lotes.push(this.criarLote(lote));
             });
@@ -201,9 +214,6 @@ export class EventoDetalheComponent implements OnInit {
   salvarLote() {
     this.spinner.show();
     if (this.lotes.valid) {
-      //this.dateFix(this.lotes.);
-      //this.dateFix('dataFim');
-
       for (let i = 0; i < this.lotes.value.length; i++) {
         this.lotes.value[i].dataInicio = new DateFormatPipe().transform(
           this.lotes.value[i].dataInicio,

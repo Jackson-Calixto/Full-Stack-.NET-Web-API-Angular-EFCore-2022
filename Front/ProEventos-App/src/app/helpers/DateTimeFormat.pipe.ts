@@ -16,19 +16,28 @@ export class DateTimeFormatPipe implements PipeTransform {
       value.split('/').length == 3
     ) {
       const [date, time] = value.split(' ');
-      const [month, day, year] = date.split('/');
       const [hours, minutes, seconds] = time.split(':');
-      const datetime = new Date(
-        +year,
-        month - 1,
-        +day,
-        +hours,
-        +minutes,
-        +seconds
-      );
+      const datetime = args
+      ? new Date(
+          +date.split('/')[2],
+          date.split('/')[1] - 1,
+          +date.split('/')[0],
+          +hours,
+          +minutes,
+          +seconds
+        )
+      : new Date(
+          +date.split('/')[2],
+          date.split('/')[0] - 1,
+          +date.split('/')[1],
+          +hours,
+          +minutes,
+          +seconds
+        );
+
       value = datetime;
     }
-    value = !args ? datePipe.transform(value, `${Constants.DATE_FMT}`) : value;
+    value = !args ? datePipe.transform(value, `${Constants.DATE_TIME_FMT}`) : value;
     return value;
   }
 }
