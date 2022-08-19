@@ -269,3 +269,6 @@ In this case "ProEventos.exe"
 
 Community Material Theme - Equinusocio
 Darker High Contrast
+
+npm i ngx-currency -force
+https://www.npmjs.com/package/ngx-currency

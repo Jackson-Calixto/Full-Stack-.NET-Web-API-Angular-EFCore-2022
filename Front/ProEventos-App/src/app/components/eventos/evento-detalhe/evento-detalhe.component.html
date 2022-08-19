@@ -1,8 +1,8 @@
 <div class="card rounded shadow-sm">
   <form [formGroup]="form">
     <div class="p-3">
-      <p>form.value: {{ form.value | json }}</p>
-      <p>form.status: {{ form.status | json }}</p>
+      <!-- <p>form.value: {{ form.value | json }}</p>
+      <p>form.status: {{ form.status | json }}</p> -->
       <div class="form-row">
         <div class="form-group col-md-12">
           <label>Tema</label>
@@ -119,10 +119,10 @@
 </div>
 
 <div class="card rounded shadow-sm mt-4" *ngIf="modoEditar">
-  <p>lotes: {{ evento.lotes | json }}</p>
+  <!-- <p>lotes: {{ evento.lotes | json }}</p>
   <p>lotes.length: {{ lotes.value.length | json }}</p>
   <p>lotes.value: {{ lotes.value | json }}</p>
-  <p>salvar.disabled: {{ !lotes.valid || !lotes.value.length | json }}</p>
+  <p>salvar.disabled: {{ !lotes.valid || !lotes.value.length | json }}</p> -->
   <div class="p-3">
     <div class="d-flex border-bottom">
       <h2 class="mr-auto">Lotes do Evento</h2>
@@ -137,10 +137,15 @@
           formArrayName="lotes"
           *ngFor="let lote of lotes.controls; let i = index"
         >
-          <p>lote.value: {{ lote.value | json }}</p>
-          <p>lote.status: {{ lote.status | json }}</p>
+          <!-- <p>lote.value: {{ lote.value | json }}</p>
+          <p>lote.status: {{ lote.status | json }}</p> -->
           <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
+              {{
+                lote.value.nome === null || lote.value.nome === ""
+                  ? "Nome do Lote"
+                  : lote.value.nome
+              }}
               <button
                 (click)="removerLote(template, i)"
                 class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
@@ -177,10 +182,10 @@
               <div class="form-group col-md-4">
                 <label>Preço</label>
                 <input
-                  type="text"
                   currencyMask
                   class="form-control"
                   formControlName="preco"
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
                   [ngClass]="cssValidator(lotes.get(i + '.preco'))"
                   placeholder="R$ 0,00"
                 />

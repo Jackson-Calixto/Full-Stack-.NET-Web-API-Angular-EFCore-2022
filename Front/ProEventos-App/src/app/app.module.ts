@@ -32,6 +32,7 @@ import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { DatePipe } from '@angular/common';
 import { LoteService } from './services/lote.service';
 import { DateFormatPipe } from './helpers/DateFormat.pipe';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -72,6 +73,7 @@ defineLocale('pt-br', ptBrLocale);
     }),
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
+    NgxCurrencyModule,
   ],
   providers: [EventoService, LoteService, DatePipe],
   bootstrap: [AppComponent],
