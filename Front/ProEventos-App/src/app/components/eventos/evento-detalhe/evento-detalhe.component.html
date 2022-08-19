@@ -120,8 +120,9 @@
 </div>
 
 <div class="card rounded shadow-sm mt-4" *ngIf="modoEditar">
-  <!-- <p>lotes.value: {{ lotes.value | json }}</p>
-  <p>lotes.status: {{ lotes.status | json }}</p> -->
+  <!-- <p>lotes.length: {{ lotes.value.length | json }}</p>
+  <p>lotes.value: {{ lotes.value | json }}</p>
+  <p>salvar.disabled: {{ !lotes.valid || !lotes.value.length | json }}</p> -->
   <div class="p-3">
     <div class="d-flex border-bottom">
       <h2 class="mr-auto">Lotes do Evento</h2>
@@ -137,10 +138,11 @@
           *ngFor="let lote of lotes.controls; let i = index"
         >
           <!-- <p>lote.value: {{ lote.value | json }}</p>
-        <p>lote.status: {{ lote.status | json }}</p> -->
+          <p>lote.status: {{ lote.status | json }}</p> -->
           <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
               <button
+                (click)="removerLote(template, i)"
                 class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
                 tooltip="Excluir Lote"
                 [adaptivePosition]="false"
@@ -190,7 +192,7 @@
                   class="form-control"
                   formControlName="dataInicio"
                   [ngClass]="cssValidator(lotes.get(i + '.dataInicio'))"
-                  placeholder="01/01/2019"
+                  placeholder="dd/MM/aaaa"
                 />
               </div>
               <div class="form-group col-md-4">
@@ -200,7 +202,7 @@
                   class="form-control"
                   formControlName="dataFim"
                   [ngClass]="cssValidator(lotes.get(i + '.dataFim'))"
-                  placeholder="01/01/2019"
+                  placeholder="dd/MM/aaaa"
                 />
               </div>
             </div>
@@ -218,10 +220,26 @@
       <button class="btn btn-outline-secondary mr-auto border">
         Cancelar Alteração
       </button>
-      <button class="btn btn-success" (click)="salvarLote()">
+      <button
+        class="btn btn-success"
+        (click)="salvarLote()"
+        [disabled]="!lotes.valid || !lotes.value.length"
+      >
         Salvar Lotes
       </button>
     </div>
   </div>
 </div>
 <br />
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja excluir o lote {{this.loteAtual.nome}}?</p>
+    <button type="button" class="btn btn-default" (click)="confirmRemoverLote()">
+      Sim
+    </button>
+    <button type="button" class="btn btn-primary" (click)="declineRemoverLote()">
+      Não
+    </button>
+  </div>
+</ng-template>

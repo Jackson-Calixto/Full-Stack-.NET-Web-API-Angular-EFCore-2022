@@ -1,5 +1,5 @@
 import { DatePipe, JsonPipe, KeyValuePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import {
   AbstractControl,
   AbstractControlOptions,
@@ -19,6 +19,7 @@ import { LoteService } from '@app/services/lote.service';
 import { Constants } from '@app/util/constants';
 import { moment } from 'ngx-bootstrap/chronos/testing/chain';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -28,7 +29,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./evento-detalhe.component.scss'],
 })
 export class EventoDetalheComponent implements OnInit {
+  modalRef?: BsModalRef;
   eventoId: any;
+  loteAtual = {id: 0, nome:'', indice:0};
   evento = {} as Evento;
   form!: FormGroup;
   estadoSalvar = 'post';
@@ -61,6 +64,7 @@ export class EventoDetalheComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private eventoService: EventoService,
     private loteService: LoteService,
+    private modalService: BsModalService,
     private datePipe: DatePipe,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
@@ -212,11 +216,10 @@ export class EventoDetalheComponent implements OnInit {
       }
 
       this.loteService
-        .SaveLotes(this.eventoId, this.lotes.value)
+        .SaveLotes(this.eventoId, this.form.value.lotes)
         .subscribe(
           () => {
             this.toastr.success('Lotes salvos com sucesso.', 'Sucesso');
-            this.router.navigate([`eventos/detalhe/${this.evento.id}`]);
           },
           (err: any) => {
             console.error(err);
@@ -225,5 +228,35 @@ export class EventoDetalheComponent implements OnInit {
         )
         .add(() => this.spinner.hide());
     }
+  }
+
+  removerLote(template: TemplateRef<any>, indice: number) {
+    this.loteAtual.indice = indice;
+    this.loteAtual.id = this.lotes.value[indice].id;
+    this.loteAtual.nome = this.lotes.value[indice].nome;
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  confirmRemoverLote() {
+    this.modalRef?.hide();
+    this.spinner.show();
+
+    this.loteService
+      .deleteLote(this.eventoId, this.loteAtual.id)
+      .subscribe(
+        () => {
+          this.toastr.success('Lote excluido com sucesso.', 'Sucesso');
+          this.lotes.removeAt(this.loteAtual.indice);
+        },
+        (err: any) => {
+          console.error(err);
+          this.toastr.error('Erro ao tentar excluir Lote.', 'Erro!');
+        }
+      )
+      .add(() => this.spinner.hide());
+  }
+
+  declineRemoverLote() {
+    this.modalRef?.hide();
   }
 }
