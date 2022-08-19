@@ -36,6 +36,7 @@ export class EventoDetalheComponent implements OnInit {
   form!: FormGroup;
   estadoSalvar = 'post';
   imagemURL = 'assets/upload.png';
+  file!: File[];
 
   get modoEditar() {
     return this.estadoSalvar === 'put';
@@ -269,5 +270,15 @@ export class EventoDetalheComponent implements OnInit {
 
   declineRemoverLote() {
     this.modalRef?.hide();
+  }
+
+  onFileChange(ev: any) {
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => (this.imagemURL = e.target.result);
+
+    this.file = ev.target.files;
+
+    reader.readAsDataURL(this.file[0]);
   }
 }
