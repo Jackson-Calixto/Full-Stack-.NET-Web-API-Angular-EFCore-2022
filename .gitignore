@@ -385,3 +385,6 @@ testem.log
 *.db
 *.db-shm
 *.db-wal
+
+#Resources/Images
+Back/src/ProEventos.API/Resources/Images/

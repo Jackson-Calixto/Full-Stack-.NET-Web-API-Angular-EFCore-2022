@@ -91,7 +91,7 @@ namespace ProEventos.API.Controllers
             }
         }
 
-        [HttpPost("/upload-image/{eventoId}")]
+        [HttpPost("upload-image/{eventoId}")]
         public async Task<IActionResult> UploadImagem(int eventoId)
         {
             try

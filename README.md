@@ -272,3 +272,7 @@ Darker High Contrast
 
 npm i ngx-currency -force
 https://www.npmjs.com/package/ngx-currency
+
+Solving issue with Upload
+this.file = ev.target.files[0];
+formData.append('file', fileToUpload);

@@ -36,7 +36,7 @@ export class EventoDetalheComponent implements OnInit {
   form!: FormGroup;
   estadoSalvar = 'post';
   imagemURL = 'assets/upload.png';
-  file!: File[];
+  file: any;
 
   get modoEditar() {
     return this.estadoSalvar === 'put';
@@ -277,8 +277,24 @@ export class EventoDetalheComponent implements OnInit {
 
     reader.onload = (e: any) => (this.imagemURL = e.target.result);
 
-    this.file = ev.target.files;
+    this.file = ev.target.files[0];
 
-    reader.readAsDataURL(this.file[0]);
+    reader.readAsDataURL(this.file);
+
+    this.uploadImagem();
+  }
+
+  uploadImagem(){
+    this.spinner.show();
+    this.eventoService.postUpload(this.eventoId, this.file).subscribe(
+      () => {
+        this.carregarEvento();
+        this.toastr.success('Sessão carregada com sucesso.', 'Sucesso');
+      },
+      (err: any) => {
+        console.error(err);
+        this.toastr.error('Erro ao tentar carrgar.', 'Erro!');
+      }
+    ).add(() => this.spinner.hide());
   }
 }
