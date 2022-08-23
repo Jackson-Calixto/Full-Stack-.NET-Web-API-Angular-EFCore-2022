@@ -16,6 +16,7 @@
                 class="form-control"
                 [ngClass]="cssValidator(f.tema)"
                 formControlName="tema"
+                [(ngModel)]="evento.tema"
                 placeholder="Insira o Tema"
               />
               <div *ngIf="f.tema.errors?.required" class="invalid-feedback">
@@ -37,6 +38,7 @@
                 class="form-control"
                 [ngClass]="cssValidator(f.local)"
                 formControlName="local"
+                [(ngModel)]="evento.local"
                 placeholder=""
               />
               <div class="invalid-feedback">Local é obrigatório...</div>
@@ -48,6 +50,7 @@
                 class="form-control"
                 bsDatepicker
                 formControlName="dataEvento"
+                [(ngModel)]="evento.dataEvento"
                 placeholder="MM/dd/aaaa HH:mm"
                 [ngClass]="cssValidator(f.dataEvento)"
                 [bsConfig]="bsConfig"
@@ -63,6 +66,7 @@
                 class="form-control"
                 [ngClass]="cssValidator(f.qtdPessoas)"
                 formControlName="qtdPessoas"
+                [(ngModel)]="evento.qtdPessoas"
                 placeholder=""
               />
               <div class="invalid-feedback">Qtd Pessoas é obrigatório...</div>
@@ -74,6 +78,7 @@
                 class="form-control"
                 [ngClass]="cssValidator(f.telefone)"
                 formControlName="telefone"
+                [(ngModel)]="evento.telefone"
                 placeholder="(00) 90000-0000"
               />
               <div class="invalid-feedback">Telefone é obrigatório...</div>
@@ -85,6 +90,7 @@
                 class="form-control"
                 [ngClass]="cssValidator(f.email)"
                 formControlName="email"
+                [(ngModel)]="evento.email"
                 placeholder="e-mail"
               />
               <div class="invalid-feedback">e-mail é obrigatório...</div>
