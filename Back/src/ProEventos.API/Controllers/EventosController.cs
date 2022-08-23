@@ -103,6 +103,7 @@ namespace ProEventos.API.Controllers
                 if (file.Length > 0)
                 {
                     DeleteImage(evento.ImagemURL);
+
                     evento.ImagemURL = await SaveImage(file);
                 }
                 var EventoRetorno = await _eventoService.UpdateEvento(eventoId, evento);
@@ -141,8 +142,12 @@ namespace ProEventos.API.Controllers
                 var evento = await _eventoService.GetEventoByIdAsync(id, true);
                 if (evento == null) return NoContent();
 
-                return await _eventoService.DeleteEvento(id) ?
-                    Ok(new { message = "Deletado" }) :
+                if (await _eventoService.DeleteEvento(id))
+                {
+                    DeleteImage(evento.ImagemURL);
+                    return Ok(new { message = "Deletado" });
+                }
+                else
                     throw new Exception("Ocorreu um problema não específico ao tentar deletar Evento.");
             }
             catch (Exception ex)
@@ -155,9 +160,12 @@ namespace ProEventos.API.Controllers
         [NonAction]
         public void DeleteImage(string imageName)
         {
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
-            if (!System.IO.File.Exists(imagePath))
-                System.IO.File.Delete(imagePath);
+            if (imageName != null && imageName != "")
+            {
+                var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources\images", imageName);
+                if (System.IO.File.Exists(imagePath))
+                    System.IO.File.Delete(imagePath);
+            }
         }
 
         [NonAction]
@@ -170,7 +178,7 @@ namespace ProEventos.API.Controllers
 
             imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
 
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources\images", imageName);
 
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {

@@ -54,7 +54,7 @@
             [collapse]="!exibirImagem"
             [isAnimated]="true"
             *ngIf="exibirImagem"
-            src="assets/{{ evento.imagemURL }}"
+            [src]="eventoImagem(evento.imagemURL)"
             alt=""
             [style.width.px]="widthImg"
             [style.margin.px]="marginImg"

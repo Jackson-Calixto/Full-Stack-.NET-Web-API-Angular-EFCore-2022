@@ -47,10 +47,10 @@
                 type="datetime"
                 class="form-control"
                 bsDatepicker
-                value="{{ evento.dataEvento | date: 'dd/MM/yyyy HH:mm' }}"
-                placeholder="dd/MM/aaaa HH:mm"
-                (bsValueChange)="dataEventoChange($event)"
+                formControlName="dataEvento"
+                placeholder="MM/dd/aaaa HH:mm"
                 [ngClass]="cssValidator(f.dataEvento)"
+                [bsConfig]="bsConfig"
               />
               <div class="invalid-feedback">Data e Hora é obrigatório...</div>
             </div>
@@ -67,7 +67,7 @@
               />
               <div class="invalid-feedback">Qtd Pessoas é obrigatório...</div>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-4">
               <label>Telefone</label>
               <input
                 type="text"
@@ -78,7 +78,7 @@
               />
               <div class="invalid-feedback">Telefone é obrigatório...</div>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label>e-mail</label>
               <input
                 type="text"
@@ -89,7 +89,7 @@
               />
               <div class="invalid-feedback">e-mail é obrigatório...</div>
             </div>
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
               <label>Imagem</label>
               <input
                 type="text"
@@ -99,7 +99,7 @@
                 placeholder="imagem"
               />
               <div class="invalid-feedback">Imagem é obrigatório...</div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="card-footer">
@@ -203,8 +203,11 @@
                     <input
                       type="datetime"
                       class="form-control"
+                      bsDatepicker
                       formControlName="dataInicio"
-                      placeholder="dd/MM/aaaa"
+                      placeholder="MM/dd/aaaa"
+                      [ngClass]="cssValidator(lotes.get(i + '.dataInicio'))"
+                      [bsConfig]="bsConfigLote"
                     />
                   </div>
                   <div class="form-group col-md-4">
@@ -212,8 +215,11 @@
                     <input
                       type="datetime"
                       class="form-control"
+                      bsDatepicker
                       formControlName="dataFim"
-                      placeholder="dd/MM/aaaa"
+                      placeholder="MM/dd/aaaa"
+                      [ngClass]="cssValidator(lotes.get(i + '.dataFim'))"
+                      [bsConfig]="bsConfigLote"
                     />
                   </div>
                 </div>
@@ -245,7 +251,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-4" style="padding-right: 0px;" *ngIf="modoEditar">
+  <div class="col-md-4" style="padding-right: 0px" *ngIf="modoEditar">
     <div [formGroup]="form" class="card-evento-view shadow-sm">
       <div class="form-row">
         <div class="form-group m-0">
@@ -265,7 +271,7 @@
           <img
             class="image"
             [src]="imagemURL"
-            style="width: 100%;"
+            style="width: 100%"
             class="img-fluid"
             (click)="file.click()"
             alt="Card image cap"
@@ -283,7 +289,7 @@
 
             <br />
 
-            <b>Data:</b> {{ evento.dataEvento | DateFormat }}
+            <b>Data:</b> {{ evento.dataEvento | date: "MM/dd/yyyy HH:mm" }}
           </p>
 
           <hr />

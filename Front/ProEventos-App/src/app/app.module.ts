@@ -46,8 +46,6 @@ defineLocale('pt-br', ptBrLocale);
     PerfilComponent,
     TituloComponent,
     NavComponent,
-    DateTimeFormatPipe,
-    DateFormatPipe,
     EventoDetalheComponent,
     EventoListaComponent,
     UserComponent,

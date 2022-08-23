@@ -10,13 +10,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DateFormatPipe } from '@app/helpers/DateFormat.pipe';
-import { DateTimeFormatPipe } from '@app/helpers/DateTimeFormat.pipe';
 import { Evento } from '@app/models/Evento';
 import { Lote } from '@app/models/Lote';
 import { EventoService } from '@app/services/evento.service';
 import { LoteService } from '@app/services/lote.service';
 import { Constants } from '@app/util/constants';
+import { environment } from '@environments/environment';
 import { moment } from 'ngx-bootstrap/chronos/testing/chain';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -54,7 +53,7 @@ export class EventoDetalheComponent implements OnInit {
     return {
       isAnimated: true,
       adaptivePosition: true,
-      dateInputFormat: 'dd/MM/yyyy HH:mm',
+      dateInputFormat: 'MM/DD/YYYY HH:mm',
       showTodayButton: true,
       containerClass: 'theme-default',
     };
@@ -64,7 +63,7 @@ export class EventoDetalheComponent implements OnInit {
     return {
       isAnimated: true,
       adaptivePosition: true,
-      dateInputFormat: 'DD/MM/YYYY',
+      dateInputFormat: 'MM/DD/YYYY',
       showTodayButton: true,
       containerClass: 'theme-default',
     };
@@ -85,14 +84,14 @@ export class EventoDetalheComponent implements OnInit {
     this.localeService.use('pt-br');
   }
 
-  dataEventoChange(data: Date) {
-    this.form.value.dataEvento = data;
-    this.evento.dataEvento = data;
-  }
+  // dataEventoChange(data: Date) {
+  //   this.form.value.dataEvento = data;
+  //   this.evento.dataEvento = data;
+  // }
 
-  dataInicioChange(data: any, field: any) {
-    field.dataInicio = new DateFormatPipe().transform(data, 'change');
-  }
+  // dataInicioChange(data: any, field: any) {
+  //   field.dataInicio = new DateFormatPipe().transform(data, 'change');
+  // }
 
   carregarEvento() {
     this.eventoId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -107,6 +106,10 @@ export class EventoDetalheComponent implements OnInit {
           if (evento) {
             this.evento = { ...evento };
             this.form.patchValue(this.evento);
+
+            if (this.evento.imagemURL !== '')
+              this.imagemURL = environment.apiURL + 'resources/images/' + this.evento.imagemURL;
+
             this.evento.lotes.forEach((lote) => {
               this.lotes.push(this.criarLote(lote));
             });
@@ -160,7 +163,7 @@ export class EventoDetalheComponent implements OnInit {
       qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      imagemURL: ['', Validators.required],
+      imagemURL: [''],
       lotes: this.fb.array([]),
     });
   }
@@ -175,8 +178,8 @@ export class EventoDetalheComponent implements OnInit {
       nome: [lote.nome, Validators.required],
       quantidade: [lote.quantidade, Validators.required],
       preco: [lote.preco, Validators.required],
-      dataInicio: [new DateFormatPipe().transform(lote.dataInicio)],
-      dataFim: [new DateFormatPipe().transform(lote.dataFim)],
+      dataInicio: [lote.dataInicio],
+      dataFim: [lote.dataFim],
     });
   }
 
@@ -216,16 +219,16 @@ export class EventoDetalheComponent implements OnInit {
   salvarLote() {
     this.spinner.show();
     if (this.lotes.valid) {
-      for (let i = 0; i < this.lotes.value.length; i++) {
-        this.lotes.value[i].dataInicio = new DateFormatPipe().transform(
-          this.lotes.value[i].dataInicio,
-          'save'
-        );
-        this.lotes.value[i].dataFim = new DateFormatPipe().transform(
-          this.lotes.value[i].dataFim,
-          'save'
-        );
-      }
+      // for (let i = 0; i < this.lotes.value.length; i++) {
+      //   this.lotes.value[i].dataInicio = new DateFormatPipe().transform(
+      //     this.lotes.value[i].dataInicio,
+      //     'save'
+      //   );
+      //   this.lotes.value[i].dataFim = new DateFormatPipe().transform(
+      //     this.lotes.value[i].dataFim,
+      //     'save'
+      //   );
+      // }
 
       this.loteService
         .SaveLotes(this.eventoId, this.form.value.lotes)

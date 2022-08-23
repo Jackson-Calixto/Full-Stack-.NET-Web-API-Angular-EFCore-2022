@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -85,24 +86,27 @@ export class EventoListaComponent implements OnInit {
     this.modalRef.hide();
     this.spinner.show();
 
-    this.eventoService.delete(this.eventoId).subscribe(
-      (result: any) => {
-        if (result.message === 'Deletado') {
-          this.toastr.success(
-            'O evento foi excluido com sucesso.',
-            'Excluido!'
+    this.eventoService
+      .delete(this.eventoId)
+      .subscribe(
+        (result: any) => {
+          if (result.message === 'Deletado') {
+            this.toastr.success(
+              'O evento foi excluido com sucesso.',
+              'Excluido!'
+            );
+            this.getEventos();
+          }
+        },
+        (error: any) => {
+          console.log(error);
+          this.toastr.error(
+            `Erro ao tentar excluir o evento código ${this.eventoId}.`,
+            'Erro!'
           );
-          this.getEventos();
         }
-      },
-      (error: any) => {
-        console.log(error);
-        this.toastr.error(
-          `Erro ao tentar excluir o evento código ${this.eventoId}.`,
-          'Erro!'
-        );
-      }
-    ).add(() => this.spinner.hide());
+      )
+      .add(() => this.spinner.hide());
   }
 
   decline(): void {
@@ -111,5 +115,11 @@ export class EventoListaComponent implements OnInit {
 
   eventoDetalhe(id: number) {
     this.router.navigate([`/eventos/detalhe/${id}`]);
+  }
+
+  eventoImagem(imagem: string) {
+    return imagem !== ''
+      ? environment.apiURL + 'resources/images/' + imagem
+      : 'assets/SemImagem.png';
   }
 }
