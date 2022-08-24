@@ -276,3 +276,8 @@ https://www.npmjs.com/package/ngx-currency
 Solving issue with Upload
 this.file = ev.target.files[0];
 formData.append('file', fileToUpload);
+
+Read more about Angular Property Binding
+
+Installing .NET Identity
+Microsoft.AspNetCore.Identity.EntityFrameworkCore by Microsoft
