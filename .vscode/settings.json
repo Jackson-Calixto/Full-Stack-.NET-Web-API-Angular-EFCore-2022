@@ -1,3 +1,4 @@
 {
-    "livePreview.defaultPreviewPath": "/Back/src/ProEventos.API/test.html"
+  "livePreview.defaultPreviewPath": "/Back/src/ProEventos.API/test.html",
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
