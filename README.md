@@ -285,3 +285,6 @@ Microsoft.AspNetCore.Identity.EntityFrameworkCore by Microsoft
 <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
 <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
 dotnet restore
+
+Install Database Client
+MySQL - Weijan Chen
