@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,8 +34,11 @@ namespace ProEventos.API
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
             services.AddControllers()
+                .AddJsonOptions(
+                    options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+                )
                 .AddNewtonsoftJson(
-                    x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -46,6 +50,10 @@ namespace ProEventos.API
 
             services.AddScoped<ILoteService, LoteService>();
             services.AddScoped<ILotePersist, LotePersist>();
+
+            services.AddScoped<IUserPersist, UserPersist>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             services.AddCors();
             services.AddSwaggerGen(c =>
