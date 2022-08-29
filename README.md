@@ -288,3 +288,6 @@ dotnet restore
 
 Install Database Client
 MySQL - Weijan Chen
+
+System.IdentityModel.Tokens.Jwt - Microsoft
+Microsoft.IdentityModel.Tokens - Microsoft
