@@ -26,7 +26,6 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpGet("GetUser/{userName}")]
-        [AllowAnonymous]
         public async Task<IActionResult> GetUser(string userName)
         {
             try
@@ -55,6 +54,31 @@ namespace ProEventos.API.Controllers
                     return Ok(user);
 
                 return BadRequest("Usuário não criado, tente mais tarde!");
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar Usuário. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(UserLoginDto userLogin)
+        {
+            try
+            {
+                var user = await _accountService.GetUserByUserNameAsync(userLogin.Username);
+                if (user == null) return Unauthorized("Usuário ou senha inválido");
+
+                var result = await _accountService.CheckUserPasswordAsync(user, userLogin.Password);
+                if (!result.Succeeded) return Unauthorized("Usuário ou senha inválido");
+
+                return Ok(new {
+                    userName = user.UserName,
+                    PrimeiroNome = user.PrimeiroNome,
+                    token = _tokenService.CreateToken(user).Result
+                });
             }
             catch (Exception ex)
             {
