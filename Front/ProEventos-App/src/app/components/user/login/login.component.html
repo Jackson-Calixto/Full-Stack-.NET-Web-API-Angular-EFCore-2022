@@ -1,10 +1,11 @@
 <div class="d-flex align-items-center vh-100">
   <div class="mx-auto text-center shadow-sm bg-white rounded p-5 my-5">
-    <form class="form-signin">
+    <form #loginForm="ngForm" class="form-signin" (ngSubmit)="login()">
       <i class="fa fa-users mb-2"></i>
       <h1 class="h3 mb-3 font-weight-normal">Entrar com</h1>
       <label for="username" class="sr-only">Usuário</label>
       <input
+        [(ngModel)]="model.userName"
         type="email"
         id="username"
         class="form-control"
@@ -14,6 +15,7 @@
       />
       <label for="password" class="sr-only">Password</label>
       <input
+        [(ngModel)]="model.password"
         type="password"
         id="password"
         class="form-control"
@@ -21,11 +23,13 @@
         name="password"
         required
       />
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
+      <button [disabled]="loginForm.invalid" class="btn btn-lg btn-primary btn-block" type="submit">
         Entrar
       </button>
       <p class="mt-4 mb-2 text-muted">Não tem login? Cadastre-se abaixo</p>
-      <a class="btn btn-lg btn-link btn-block" routerLink="/user/registration">Quero me cadastrar</a>
+      <a class="btn btn-lg btn-link btn-block" routerLink="/user/registration"
+        >Quero me cadastrar</a
+      >
     </form>
   </div>
 </div>
