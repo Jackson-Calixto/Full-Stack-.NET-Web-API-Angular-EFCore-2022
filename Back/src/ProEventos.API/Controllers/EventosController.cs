@@ -8,9 +8,11 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using ProEventos.API.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProEventos.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EventosController : ControllerBase
