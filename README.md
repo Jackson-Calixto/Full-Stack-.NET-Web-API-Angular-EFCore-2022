@@ -297,3 +297,6 @@ curl --location --request GET 'Endpoint' --header 'Authorization: Bearer "Token"
 
 Example:
 curl --location --request GET 'https://localhost:5001/api/Account/GetUser/jackson' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJqYWNrc29uIiwibmJmIjoxNjYyMTEwNDgzLCJleHAiOjE2NjIxOTY4ODMsImlhdCI6MTY2MjExMDQ4M30.2_914IyABjINi0Q73oThPDQXsKoquo9_jAWv2Y1Qgcg7wPDWpZluy0ejSREGKNNH3Addv_I92a_Hr1vTk3S3sQ'
+
+Learn more about Interceptors
+ng g interceptor interceptors/jwt
