@@ -49,12 +49,17 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                if (await _accountService.UserExists(userDTO.Username))
+                if (await _accountService.UserExists(userDTO.UserName))
                     return BadRequest("Usuário já existe");
 
                 var user = await _accountService.CreateAccountAsync(userDTO);
                 if (user != null)
-                    return Ok(user);
+                    return Ok(new
+                    {
+                        userName = user.UserName,
+                        PrimeiroNome = user.PrimeiroNome,
+                        token = _tokenService.CreateToken(user).Result
+                    });
 
                 return BadRequest("Usuário não criado, tente mais tarde!");
             }
@@ -71,13 +76,14 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var user = await _accountService.GetUserByUserNameAsync(userLogin.Username);
+                var user = await _accountService.GetUserByUserNameAsync(userLogin.UserName);
                 if (user == null) return Unauthorized("Usuário ou senha inválido");
 
                 var result = await _accountService.CheckUserPasswordAsync(user, userLogin.Password);
                 if (!result.Succeeded) return Unauthorized("Usuário ou senha inválido");
 
-                return Ok(new {
+                return Ok(new
+                {
                     userName = user.UserName,
                     PrimeiroNome = user.PrimeiroNome,
                     token = _tokenService.CreateToken(user).Result

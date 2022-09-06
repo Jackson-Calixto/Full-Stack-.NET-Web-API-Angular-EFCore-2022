@@ -11,8 +11,9 @@ import { Evento } from '../models/Evento';
 export class EventoService {
 
   baseURL = environment.apiURL + 'api/eventos';
+  lsUser = localStorage.getItem('user')?.toString() as string;
   tokenHeader = new HttpHeaders({
-    'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJqYWNrc29uIiwibmJmIjoxNjYyMzY0MzI5LCJleHAiOjE2NjI0NTA3MjksImlhdCI6MTY2MjM2NDMyOX0.3iYTGFIOidX3eLf7jLDMLVwD5PTXIYA-RKMvTyWMKeL5Q-DiN8QAqRr6gEf0VYmJw2yjnsoywd-01trXG7J4YA'
+    'Authorization': `Bearer ${JSON.parse(this.lsUser).token}`
   });
 
   constructor(private http: HttpClient) {}
