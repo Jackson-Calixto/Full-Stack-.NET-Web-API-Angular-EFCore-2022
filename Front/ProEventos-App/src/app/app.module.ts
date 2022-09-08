@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +33,7 @@ import { DatePipe } from '@angular/common';
 import { LoteService } from './services/lote.service';
 import { DateFormatPipe } from './helpers/DateFormat.pipe';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -73,7 +74,12 @@ defineLocale('pt-br', ptBrLocale);
     BsDatepickerModule.forRoot(),
     NgxCurrencyModule,
   ],
-  providers: [EventoService, LoteService, DatePipe],
+  providers: [
+    EventoService,
+    LoteService,
+    DatePipe,
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi:true}
+    ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

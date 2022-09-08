@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@app/models/identity/User';
@@ -39,14 +40,19 @@ export class AccountService {
   }
 
   logout() {
-    const nullUser = new User;
     localStorage.removeItem('user');
-    this.currentUserSource.next(nullUser);
-    this.currentUserSource.complete();
+    this.currentUserSource.next({} as User);
   }
 
   public setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSource.next(user);
+  }
+
+  public getCurrentUser() {
+    var user: any;
+    var lsUser = localStorage.getItem('user');
+    user = lsUser ? (JSON.parse(lsUser!.toString()) as User) : ({} as User);
     this.currentUserSource.next(user);
   }
 }
