@@ -49,10 +49,7 @@ export class AccountService {
     this.currentUserSource.next(user);
   }
 
-  public getCurrentUser() {
-    var user: any;
-    var lsUser = localStorage.getItem('user');
-    user = lsUser ? (JSON.parse(lsUser!.toString()) as User) : ({} as User);
-    this.currentUserSource.next(user);
+  public authenticated(obj: any): boolean {
+    return obj && JSON.stringify(obj) !== '{}';
   }
 }

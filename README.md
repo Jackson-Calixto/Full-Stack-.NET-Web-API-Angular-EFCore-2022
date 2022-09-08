@@ -300,3 +300,7 @@ curl --location --request GET 'https://localhost:5001/api/Account/GetUser/jackso
 
 Learn more about Interceptors
 ng g interceptor interceptors/jwt
+
+Prevent access to Unauthorized routes
+Learn more about guard
+ng g guard guard/auth

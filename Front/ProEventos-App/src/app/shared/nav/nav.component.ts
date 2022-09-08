@@ -21,7 +21,6 @@ export class NavComponent implements OnInit {
   }
 
   ShowNav(obj: any) {
-    this.accountService.getCurrentUser();
-    return obj && Object.keys(obj).length !== 0;
+    return this.accountService.authenticated(obj);
   }
 }
