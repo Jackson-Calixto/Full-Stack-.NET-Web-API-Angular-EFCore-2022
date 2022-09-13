@@ -50,6 +50,8 @@ export class AccountService {
   }
 
   public authenticated(obj: any): boolean {
-    return obj && JSON.stringify(obj) !== '{}';
+    const user =
+      typeof obj === 'object' ? obj : JSON.parse(obj.toString?.() ?? '{}');
+    return user && 'userName' in user;
   }
 }
