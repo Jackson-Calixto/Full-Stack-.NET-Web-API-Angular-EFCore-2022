@@ -2,6 +2,7 @@ import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@app/models/identity/User';
+import { UserUpdate } from '@app/models/identity/UserUpdate';
 import { environment } from '@environments/environment';
 import { map, Observable, ReplaySubject, take } from 'rxjs';
 
@@ -23,6 +24,19 @@ export class AccountService {
         if (user) {
           this.setCurrentUser(user);
         }
+      })
+    );
+  }
+
+  getUser(): Observable<UserUpdate> {
+    return this.http.get<UserUpdate>(this.baseUrl + 'getUser').pipe(take(1));
+  }
+
+  updadeUser(model: UserUpdate): Observable<void> {
+    return this.http.put<UserUpdate>(this.baseUrl + 'updateUser', model).pipe(
+      take(1), 
+      map((user: UserUpdate) => {
+        this.setCurrentUser(user);
       })
     );
   }

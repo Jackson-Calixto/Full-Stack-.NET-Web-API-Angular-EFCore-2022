@@ -1,7 +1,7 @@
 <app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-user'"></app-titulo>
 
 <div class="card rounded shadow-sm">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row p-3">
       <div class="col-lg-3 pt-1">
         <div class="card mb-3">
@@ -49,20 +49,21 @@
           </div>
           <div class="form-group col">
             <label>Título</label>
-            <select class="form-control"
-            placeholder="Não Quero"
-            formControlName="titulo"
-            [ngClass]="cssValidator(f.titulo)"
+            <select
+              class="form-control"
+              placeholder="Não Quero"
+              formControlName="titulo"
+              [ngClass]="cssValidator(f.titulo)"
             >
               <option value=""></option>
-              <option value="0">Não Quero</option>
-              <option value="Senhorita">Tecnólogo(a)</option>
-              <option value="Senhorita">Bacharel</option>
-              <option value="Senhorita">Especialista</option>
-              <option value="Senhorita">Pós Graduado(a)</option>
-              <option value="Senhorita">Mestre</option>
-              <option value="Senhorita">Doutor(a)</option>
-              <option value="Senhorita">Pós Doc</option>
+              <option value="NaoInformado">Não Informado</option>
+              <option value="Tecnologo">Tecnólogo(a)</option>
+              <option value="Bacharel">Bacharel</option>
+              <option value="Especialista">Especialista</option>
+              <option value="PosGraduado">Pós Graduado(a)</option>
+              <option value="Mestrado">Mestre</option>
+              <option value="Doutorado">Doutor(a)</option>
+              <option value="PosDoutorado">Pós Doc</option>
             </select>
             <div class="invalid-feedback">Título é obrigatório...</div>
           </div>
@@ -92,10 +93,12 @@
         <div class="form-row">
           <div class="form-group col-sm-5">
             <label>E-mail</label>
-            <input type="text" class="form-control"
-            placeholder="Informe o E-mail"
-            formControlName="email"
-            [ngClass]="cssValidator(f.email)"
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Informe o E-mail"
+              formControlName="email"
+              [ngClass]="cssValidator(f.email)"
             />
             <div class="invalid-feedback">E-mail é obrigatório...</div>
           </div>
@@ -105,19 +108,20 @@
               type="text"
               class="form-control"
               placeholder="Informe o Telefone"
-              formControlName="telefone"
-              [ngClass]="cssValidator(f.telefone)"
+              formControlName="phoneNumber"
+              [ngClass]="cssValidator(f.phoneNumber)"
             />
             <div class="invalid-feedback">Telefone é obrigatório...</div>
           </div>
           <div class="form-group col-sm">
             <label>Função</label>
-            <select class="form-control"
-            placeholder="Participante"
-            formControlName="funcao"
-            [ngClass]="cssValidator(f.funcao)"
+            <select
+              class="form-control"
+              placeholder="Participante"
+              formControlName="funcao"
+              [ngClass]="cssValidator(f.funcao)"
             >
-              <option value=""></option>
+              <option value="NaoInformado">Não Informado</option>
               <option value="Participante">Participante</option>
               <option value="Palestrante">Palestrante</option>
             </select>
@@ -146,11 +150,11 @@
               type="password"
               class="form-control"
               placeholder="Digite a Senha"
-              formControlName="senha"
-              [ngClass]="cssValidator(f.senha)"
+              formControlName="password"
+              [ngClass]="cssValidator(f.password)"
             />
-            <div *ngIf="f.senha.errors?.minlength" class="invalid-feedback">
-              Senha deve ter ao menos 6 caracteres...
+            <div *ngIf="f.password.errors?.minlength" class="invalid-feedback">
+              Senha deve ter ao menos 4 caracteres...
             </div>
           </div>
           <div class="form-group col-sm">
@@ -159,10 +163,13 @@
               type="password"
               class="form-control"
               placeholder="Confirme a Senha"
-              formControlName="confirmarSenha"
-              [ngClass]="cssValidator(f.confirmarSenha)"
+              formControlName="confirmarPassword"
+              [ngClass]="cssValidator(f.confirmarPassword)"
             />
-            <div *ngIf="f.confirmarSenha.errors?.mustMatch" class="invalid-feedback">
+            <div
+              *ngIf="f.confirmarPassword.errors?.mustMatch"
+              class="invalid-feedback"
+            >
               Repita a mesma Senha...
             </div>
           </div>
@@ -171,10 +178,13 @@
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm($event)">
+        <button
+          class="btn btn-outline-secondary mr-auto border"
+          (click)="resetForm($event)"
+        >
           Cancelar Alteração
         </button>
-        <button class="btn btn-success" [disabled]="!form.valid">
+        <button class="btn btn-success" [disabled]="!form.valid" type="submit">
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Salvar Alteração
         </button>
