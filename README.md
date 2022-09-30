@@ -304,3 +304,7 @@ ng g interceptor interceptors/jwt
 Prevent access to Unauthorized routes
 Learn more about guard
 ng g guard guard/auth
+
+removing from app.module.ts
+schemas: [CUSTOM_ELEMENTS_SCHEMA], 
+display hidden errors

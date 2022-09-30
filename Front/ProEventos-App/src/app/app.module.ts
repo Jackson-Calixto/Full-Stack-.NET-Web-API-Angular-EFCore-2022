@@ -34,6 +34,7 @@ import { LoteService } from './services/lote.service';
 import { DateFormatPipe } from './helpers/DateFormat.pipe';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { HomeComponent } from './components/home/home.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -44,6 +45,7 @@ defineLocale('pt-br', ptBrLocale);
     PalestrantesComponent,
     ContatosComponent,
     DashboardComponent,
+    HomeComponent,
     PerfilComponent,
     TituloComponent,
     NavComponent,

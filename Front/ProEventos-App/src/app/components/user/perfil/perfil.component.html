@@ -18,11 +18,10 @@
             </a>
           </div>
           <div class="card-body">
-            <div class="h4 text-center mb-3">@UserName</div>
-            <div class="h7 text-bold pb-1"><b>Nome:</b> Miracles Lee Cross</div>
+            <div class="h4 text-center mb-3">@{{f.userName.value}}</div>
+            <div class="h7 text-bold pb-1"><b>Nome:</b> {{f.primeiroNome.value + ' ' + f.ultimoNome.value}}</div>
             <div class="h7">
-              Developer of web applications, JavaScript, PHP, Java, Python,
-              Ruby, Java, Node.js, etc.
+              {{f.descricao.value}}
             </div>
           </div>
           <ul class="list-group list-group-flush">
@@ -51,7 +50,7 @@
             <label>Título</label>
             <select
               class="form-control"
-              placeholder="Não Quero"
+              placeholder="Não Informado"
               formControlName="titulo"
               [ngClass]="cssValidator(f.titulo)"
             >
@@ -117,7 +116,7 @@
             <label>Função</label>
             <select
               class="form-control"
-              placeholder="Participante"
+              placeholder="Não Informado"
               formControlName="funcao"
               [ngClass]="cssValidator(f.funcao)"
             >
@@ -127,7 +126,7 @@
             </select>
             <div class="invalid-feedback">Função é obrigatório...</div>
           </div>
-          <form-group class="col-12">
+          <div class="form-group col-12">
             <label>Descrição</label>
             <input
               type="text"
@@ -137,7 +136,7 @@
               [ngClass]="cssValidator(f.descricao)"
             />
             <div class="invalid-feedback">Descrição é obrigatório...</div>
-          </form-group>
+          </div>
         </div>
         <div>
           <h3 class="pt-3 border-bottom">Mudar Senha</h3>
