@@ -90,21 +90,32 @@ namespace ProEventos.API
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAccountService, AccountService>();
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEventos.API", Version = "v1" });
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
                     Description = @"JWT Authorization header using Bearer.
                                     Enter with 'Bearer' [space] then insert your token.
                                     Example: 'Bearer 12345.abcdef.891h773'",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
-                    Scheme =  "Bearer"
+                    Scheme = "Bearer"
                 });
 
-                options.AddSecurityRequirement (new OpenApiSecurityRequirement(){
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement(){
                     {
                         new OpenApiSecurityScheme{
                             Reference = new OpenApiReference{
@@ -141,6 +152,7 @@ namespace ProEventos.API
             app.UseCors(x => x.AllowAnyHeader()
                               .AllowAnyMethod()
                               .AllowAnyOrigin());
+            // app.UseCors("AllowAllHeaders");
 
             app.UseStaticFiles(new StaticFileOptions()
             {

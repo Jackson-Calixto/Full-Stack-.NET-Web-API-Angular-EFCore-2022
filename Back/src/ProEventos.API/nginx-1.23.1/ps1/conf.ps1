@@ -1,0 +1,1 @@
+code ..\conf\nginx.conf

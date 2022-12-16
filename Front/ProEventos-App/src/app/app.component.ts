@@ -12,6 +12,11 @@ export class AppComponent {
 
   ngOnInit() {
     this.setCurrentUser();
+    if (!sessionStorage.getItem('isPageRefreshed')) {
+      sessionStorage.setItem('isPageRefreshed', 'true');
+      // This will reload page once prevent reloading of page again for that session.
+      window.location.reload();
+    }
   }
 
   setCurrentUser() {

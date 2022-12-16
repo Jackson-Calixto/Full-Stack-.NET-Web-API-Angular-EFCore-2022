@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://fullstack:5001/',
+  apiURL: 'https://localhost:5001/',
 };
 
 /*
