@@ -20,10 +20,13 @@ namespace ProEventos.Persistence.Models
             TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
             AddRange(items);
         }
+
+        public PageList() { }
+
         public static async Task<PageList<T>> CreateAsync(IQueryable<T> source, int currentPage, int pageSize)
         {
             var count = await source.CountAsync();
-            var items = await source.Skip((currentPage-1)*pageSize)
+            var items = await source.Skip((currentPage - 1) * pageSize)
                                     .Take(pageSize)
                                     .ToListAsync();
 
