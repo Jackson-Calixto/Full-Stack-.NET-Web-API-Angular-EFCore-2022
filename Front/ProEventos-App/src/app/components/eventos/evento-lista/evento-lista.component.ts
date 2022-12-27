@@ -1,7 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { PaginatedResult, Pagination } from '@app/models/Pagination';
 import { environment } from '@environments/environment';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from 'src/app/models/Evento';
@@ -15,22 +17,19 @@ import { EventoService } from 'src/app/services/evento.service';
 export class EventoListaComponent implements OnInit {
   modalRef: any;
 
-  public eventos: Evento[] = [];
-  public eventosFiltrados: Evento[] = [];
+  public eventos: Evento[];
+  public eventosFiltrados: Evento[];
 
   public widthImg = 150;
   public marginImg = 2;
   public exibirImagem = true;
   private filtroListado = '';
   public eventoId = 0;
+  public pagination = {} as Pagination;
 
   filtrarEventos(filtrarPor: string): Evento[] {
     filtrarPor = filtrarPor.toLowerCase();
-    return this.eventos.filter(
-      (evento: any) =>
-        evento.tema.toLowerCase().indexOf(filtrarPor) !== -1 ||
-        evento.local.toLowerCase().indexOf(filtrarPor) !== -1
-    );
+    return this.eventos;
   }
 
   public get filtroLista(): string {
@@ -53,7 +52,12 @@ export class EventoListaComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.spinner.show();
+    this.pagination = {
+      currentPage: 1,
+      pageSize: 3,
+      totalCount: 1,
+    } as Pagination;
+
     this.getEventos();
   }
 
@@ -62,10 +66,13 @@ export class EventoListaComponent implements OnInit {
   }
 
   public getEventos(): void {
-    this.eventoService.GetEventos().subscribe({
-      next: (eventos: Evento[]) => {
-        this.eventos = eventos;
+    this.spinner.show();
+
+    this.eventoService.GetEventos(this.pagination.currentPage,this.pagination.pageSize).subscribe({
+      next: (paginatedResult: PaginatedResult<Evento[]>) => {
+        this.eventos = paginatedResult.result ?? [];
         this.eventosFiltrados = this.eventos;
+        this.pagination = paginatedResult.pagination;
       },
       error: (error) => {
         console.log(error);
@@ -121,5 +128,9 @@ export class EventoListaComponent implements OnInit {
     return imagem !== ''
       ? environment.apiURL + 'resources/images/' + imagem
       : 'assets/SemImagem.png';
+  }
+
+  pageChanged($event: PageChangedEvent) {
+    throw new Error('Method not implemented.');
   }
 }

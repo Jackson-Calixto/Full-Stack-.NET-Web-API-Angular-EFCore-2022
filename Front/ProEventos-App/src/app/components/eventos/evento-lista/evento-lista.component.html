@@ -1,10 +1,9 @@
 <div class="card rounded shadow-sm p-3">
-
   <div class="d-flex">
     <div class="flex-fill pr-3">
       <div class="input-group mb-2">
         <div class="input-group-prepend">
-          <div class="input-group-text">Filtro: </div>
+          <div class="input-group-text">Filtro:</div>
         </div>
 
         <input
@@ -48,7 +47,11 @@
       </tr>
     </thead>
     <tbody *ngIf="eventosFiltrados && eventosFiltrados.length">
-      <tr *ngFor="let evento of eventosFiltrados" (click)="eventoDetalhe(evento.id)" style="cursor: pointer">
+      <tr
+        *ngFor="let evento of eventosFiltrados"
+        (click)="eventoDetalhe(evento.id)"
+        style="cursor: pointer"
+      >
         <td class="d-none d-md-table-cell">
           <img
             [collapse]="!exibirImagem"
@@ -63,9 +66,11 @@
         <td>{{ evento.id }}</td>
         <td>{{ evento.tema }}</td>
         <td class="d-none d-md-table-cell">{{ evento.local }}</td>
-        <td>{{ evento.dataEvento | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ evento.dataEvento | date : "dd/MM/yyyy HH:mm" }}</td>
         <td class="d-none d-md-table-cell">{{ evento.qtdPessoas }}</td>
-        <td class="d-none d-md-table-cell">{{ evento.lotes[0]?evento.lotes[0].nome:"" }}</td>
+        <td class="d-none d-md-table-cell">
+          {{ evento.lotes[0] ? evento.lotes[0].nome : "" }}
+        </td>
         <td>
           <button
             type="button"
@@ -87,13 +92,32 @@
       </tr>
     </tfoot>
   </table>
+
+  <div class="d-flex justify-content-center">
+    <pagination
+      [boundaryLinks]="true"
+
+      [totalItems]="pagination.totalCount"
+      [itemsPerPage]="pagination.pageSize"
+      [(ngModel)]="pagination.currentPage"
+      (pageChanged)="pageChanged($event)"
+
+      [align]="true"
+      pageBtnClass="btn"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
+  </div>
 </div>
 
 <!-- {{eventos | json}} -->
 
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Tem certeza que deseja excluir o evento código {{this.eventoId}}?</p>
+    <p>Tem certeza que deseja excluir o evento código {{ this.eventoId }}?</p>
     <button type="button" class="btn btn-default" (click)="confirm()">
       Sim
     </button>

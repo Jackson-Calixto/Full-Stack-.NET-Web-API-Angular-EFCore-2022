@@ -35,6 +35,7 @@ import { DateFormatPipe } from './helpers/DateFormat.pipe';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { HomeComponent } from './components/home/home.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -75,6 +76,7 @@ defineLocale('pt-br', ptBrLocale);
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
     NgxCurrencyModule,
+    PaginationModule.forRoot(),
   ],
   providers: [
     EventoService,

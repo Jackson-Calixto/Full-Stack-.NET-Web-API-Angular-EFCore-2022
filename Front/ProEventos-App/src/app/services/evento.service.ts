@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Pagination, PaginatedResult as PaginatedResult } from '@app/models/Pagination';
 import { environment } from '@environments/environment';
-import { Observable, take } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { Evento } from '../models/Evento';
 
 // @Injectable({
@@ -14,8 +15,28 @@ export class EventoService {
 
   constructor(private http: HttpClient) {}
 
-  public GetEventos(): Observable<Evento[]> {
-    return this.http.get<Evento[]>(this.baseURL).pipe(take(1));
+  public GetEventos(page?: number, itemsPerPage?: number): Observable<PaginatedResult<Evento[]>> {
+    const paginatedResult: PaginatedResult<Evento[]> = new PaginatedResult<Evento[]>();
+
+    let params = new HttpParams;
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
+    }
+
+    return this.http
+      .get<Evento[]>(this.baseURL, {observe: 'response', params})
+      .pipe(
+        take(1),
+        map((response) => {
+          if (response.body != null)
+            paginatedResult.result = response.body;
+          if (response.headers.has('Pagination')) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination') ?? '');
+          }
+          return paginatedResult;
+        }));
   }
 
   public GetEventosByTema(tema: string): Observable<Evento[]> {
