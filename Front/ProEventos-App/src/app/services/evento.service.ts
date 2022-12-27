@@ -23,6 +23,7 @@ export class EventoService {
     if (page != null && itemsPerPage != null) {
       params = params.append('pageNumber', page.toString());
       params = params.append('pageSize', itemsPerPage.toString());
+      params = params.append('MaxPageSize', itemsPerPage.toString());
     }
 
     return this.http

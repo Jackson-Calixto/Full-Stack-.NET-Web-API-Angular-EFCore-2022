@@ -68,7 +68,7 @@ export class EventoListaComponent implements OnInit {
   public getEventos(): void {
     this.spinner.show();
 
-    this.eventoService.GetEventos(this.pagination.currentPage,this.pagination.pageSize).subscribe({
+    this.eventoService.GetEventos(this.pagination.currentPage, this.pagination.pageSize).subscribe({
       next: (paginatedResult: PaginatedResult<Evento[]>) => {
         this.eventos = paginatedResult.result ?? [];
         this.eventosFiltrados = this.eventos;
