@@ -29,7 +29,11 @@ export class EventoListaComponent implements OnInit {
 
   filtrarEventos(filtrarPor: string): Evento[] {
     filtrarPor = filtrarPor.toLowerCase();
-    return this.eventos;
+    return this.eventos.filter(
+      (evento) =>
+        evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
+        evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    );
   }
 
   public get filtroLista(): string {
