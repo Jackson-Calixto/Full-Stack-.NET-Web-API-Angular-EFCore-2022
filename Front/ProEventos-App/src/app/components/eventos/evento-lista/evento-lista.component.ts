@@ -68,19 +68,18 @@ export class EventoListaComponent implements OnInit {
   public getEventos(): void {
     this.spinner.show();
 
-    this.eventoService.GetEventos(this.pagination.currentPage, this.pagination.pageSize).subscribe({
-      next: (paginatedResult: PaginatedResult<Evento[]>) => {
+    this.eventoService.GetEventos(this.pagination.currentPage, this.pagination.pageSize).subscribe(
+      (paginatedResult: PaginatedResult<Evento[]>) => {
         this.eventos = paginatedResult.result ?? [];
         this.eventosFiltrados = this.eventos;
         this.pagination = paginatedResult.pagination;
       },
-      error: (error) => {
+      (error) => {
         console.log(error);
         this.spinner.hide();
         this.toastr.error('Erro ao carreger os eventos', 'Erro!');
       },
-      complete: () => this.spinner.hide(),
-    });
+    ).add(() => this.spinner.hide());
   }
 
   openModal(event: any, template: TemplateRef<any>, eventoId: number) {
@@ -131,6 +130,7 @@ export class EventoListaComponent implements OnInit {
   }
 
   pageChanged($event: PageChangedEvent) {
-    throw new Error('Method not implemented.');
+    this.pagination.currentPage = $event.page;
+    this.getEventos();
   }
 }
