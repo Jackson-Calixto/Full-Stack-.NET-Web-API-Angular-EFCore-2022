@@ -15,7 +15,7 @@ export class EventoService {
 
   constructor(private http: HttpClient) {}
 
-  public GetEventos(page?: number, itemsPerPage?: number): Observable<PaginatedResult<Evento[]>> {
+  public GetEventos(page?: number, itemsPerPage?: number, term?: string): Observable<PaginatedResult<Evento[]>> {
     const paginatedResult: PaginatedResult<Evento[]> = new PaginatedResult<Evento[]>();
 
     let params = new HttpParams;
@@ -25,6 +25,9 @@ export class EventoService {
       params = params.append('pageSize', itemsPerPage.toString());
       params = params.append('MaxPageSize', itemsPerPage.toString());
     }
+
+    if (term != null && term != '') 
+      params = params.append('term', term);
 
     return this.http
       .get<Evento[]>(this.baseURL, {observe: 'response', params})
@@ -38,12 +41,6 @@ export class EventoService {
           }
           return paginatedResult;
         }));
-  }
-
-  public GetEventosByTema(tema: string): Observable<Evento[]> {
-    return this.http
-      .get<Evento[]>(`${this.baseURL}/tema/${tema}`)
-      .pipe(take(1));
   }
 
   public GetEventoById(id: number): Observable<Evento> {

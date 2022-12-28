@@ -10,7 +10,7 @@
           type="text"
           class="form-control"
           placeholder="por Tema e Local"
-          [(ngModel)]="filtroLista"
+          (input)="filtrarEventos($event.target)"
         />
       </div>
     </div>
@@ -46,9 +46,9 @@
         <th>Opções</th>
       </tr>
     </thead>
-    <tbody *ngIf="eventosFiltrados && eventosFiltrados.length">
+    <tbody *ngIf="eventos && eventos.length">
       <tr
-        *ngFor="let evento of eventosFiltrados"
+        *ngFor="let evento of eventos"
         (click)="eventoDetalhe(evento.id)"
         style="cursor: pointer"
       >
@@ -84,7 +84,7 @@
         </td>
       </tr>
     </tbody>
-    <tfoot *ngIf="!eventosFiltrados || eventosFiltrados.length == 0">
+    <tfoot *ngIf="!eventos || eventos.length == 0">
       <tr>
         <td colspan="8" class="text-center">
           <h4>Nenhum evento encontrado!</h4>

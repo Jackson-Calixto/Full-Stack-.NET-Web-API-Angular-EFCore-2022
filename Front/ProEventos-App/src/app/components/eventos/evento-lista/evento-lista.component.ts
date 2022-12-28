@@ -18,7 +18,6 @@ export class EventoListaComponent implements OnInit {
   modalRef: any;
 
   public eventos: Evento[];
-  public eventosFiltrados: Evento[];
 
   public widthImg = 150;
   public marginImg = 2;
@@ -27,13 +26,20 @@ export class EventoListaComponent implements OnInit {
   public eventoId = 0;
   public pagination = {} as Pagination;
 
-  filtrarEventos(filtrarPor: string): Evento[] {
-    filtrarPor = filtrarPor.toLowerCase();
-    return this.eventos.filter(
-      (evento) =>
-        evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
-        evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-    );
+  filtrarEventos(evt: any): void {
+    this.eventoService
+      .GetEventos(this.pagination.currentPage, this.pagination.pageSize, evt.value)
+      .subscribe(
+        (paginatedResult: PaginatedResult<Evento[]>) => {
+          this.eventos = paginatedResult.result ?? [];
+          this.pagination = paginatedResult.pagination;
+        },
+        (error) => {
+          console.log(error);
+          this.spinner.hide();
+          this.toastr.error('Erro ao carreger os eventos', 'Erro!');
+        }
+      );
   }
 
   public get filtroLista(): string {
@@ -42,9 +48,6 @@ export class EventoListaComponent implements OnInit {
 
   public set filtroLista(value: string) {
     this.filtroListado = value;
-    this.eventosFiltrados = this.filtroLista
-      ? this.filtrarEventos(this.filtroLista)
-      : this.eventos;
   }
 
   constructor(
@@ -72,18 +75,20 @@ export class EventoListaComponent implements OnInit {
   public getEventos(): void {
     this.spinner.show();
 
-    this.eventoService.GetEventos(this.pagination.currentPage, this.pagination.pageSize).subscribe(
-      (paginatedResult: PaginatedResult<Evento[]>) => {
-        this.eventos = paginatedResult.result ?? [];
-        this.eventosFiltrados = this.eventos;
-        this.pagination = paginatedResult.pagination;
-      },
-      (error) => {
-        console.log(error);
-        this.spinner.hide();
-        this.toastr.error('Erro ao carreger os eventos', 'Erro!');
-      },
-    ).add(() => this.spinner.hide());
+    this.eventoService
+      .GetEventos(this.pagination.currentPage, this.pagination.pageSize)
+      .subscribe(
+        (paginatedResult: PaginatedResult<Evento[]>) => {
+          this.eventos = paginatedResult.result ?? [];
+          this.pagination = paginatedResult.pagination;
+        },
+        (error) => {
+          console.log(error);
+          this.spinner.hide();
+          this.toastr.error('Erro ao carreger os eventos', 'Erro!');
+        }
+      )
+      .add(() => this.spinner.hide());
   }
 
   openModal(event: any, template: TemplateRef<any>, eventoId: number) {
