@@ -6,6 +6,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { debounceTime, Subject } from 'rxjs';
 import { Evento } from 'src/app/models/Evento';
 import { EventoService } from 'src/app/services/evento.service';
 
@@ -26,20 +27,35 @@ export class EventoListaComponent implements OnInit {
   public eventoId = 0;
   public pagination = {} as Pagination;
 
+  termoBuscaChanged: Subject<string> = new Subject<string>();
+
   filtrarEventos(evt: any): void {
-    this.eventoService
-      .GetEventos(this.pagination.currentPage, this.pagination.pageSize, evt.value)
-      .subscribe(
-        (paginatedResult: PaginatedResult<Evento[]>) => {
-          this.eventos = paginatedResult.result ?? [];
-          this.pagination = paginatedResult.pagination;
-        },
-        (error) => {
-          console.log(error);
-          this.spinner.hide();
-          this.toastr.error('Erro ao carreger os eventos', 'Erro!');
-        }
-      );
+    if (this.termoBuscaChanged.observers.length === 0) {
+      this.termoBuscaChanged
+        .pipe(debounceTime(750))
+        .subscribe((filtrarPor) => {
+          this.spinner.show();
+          this.eventoService
+            .GetEventos(
+              this.pagination.currentPage,
+              this.pagination.pageSize,
+              filtrarPor
+            )
+            .subscribe(
+              (paginatedResult: PaginatedResult<Evento[]>) => {
+                this.eventos = paginatedResult.result ?? [];
+                this.pagination = paginatedResult.pagination;
+              },
+              (error) => {
+                console.log(error);
+                this.spinner.hide();
+                this.toastr.error('Erro ao carreger os eventos', 'Erro!');
+              }
+            )
+            .add(() => this.spinner.hide());
+        });
+    }
+    this.termoBuscaChanged.next(evt.value);
   }
 
   public get filtroLista(): string {
