@@ -10,6 +10,6 @@ namespace ProEventos.Persistence.Contratos
     public interface IPalestrantePersist: IGeralPersist
     {
         Task<PageList<Palestrante>> GetAllPalestrantesAsync(PageParams pageParams, bool includeEventos = false);
-        Task<Palestrante> GetPalestrantesByIdAsync(int palestranteId, bool includeEventos = false);
+        Task<Palestrante> GetPalestrantesByIdAsync(int userId, bool includeEventos = false);
     }
 }
