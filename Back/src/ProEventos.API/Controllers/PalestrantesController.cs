@@ -36,7 +36,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var palestrantes = await _palestranteService.GetAllPalestrantesAsync(User.GetUserId(), pageParams, true);
+                var palestrantes = await _palestranteService.GetAllPalestrantesAsync(pageParams, true);
                 if (palestrantes == null) return NoContent();
 
                 Response.AddPagination(palestrantes.CurrentPage, palestrantes.PageSize, palestrantes.TotalCount, palestrantes.TotalPages);
@@ -55,7 +55,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var palestrante = await _palestranteService.GetPalestranteByIdAsync(User.GetUserId(), id, true);
+                var palestrante = await _palestranteService.GetPalestranteByIdAsync(User.GetUserId(), true);
                 if (palestrante == null) return NoContent();
 
                 return Ok(palestrante);
@@ -74,7 +74,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var palestrante = await _palestranteService.GetPalestranteByIdAsync(User.GetUserId(), model.Id, false);
+                var palestrante = await _palestranteService.GetPalestranteByIdAsync(User.GetUserId(), false);
                 
                 if (palestrante == null) 
                     palestrante = await _palestranteService.AddPalestrante(User.GetUserId(), model);

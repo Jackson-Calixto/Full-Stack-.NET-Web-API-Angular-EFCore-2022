@@ -70,22 +70,7 @@ namespace ProEventos.Application
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<bool> DeletePalestrante(int userId, int palestranteId)
-        {
-            try
-            {
-                Palestrante palestrante = await _palestrantePersist.GetPalestrantesByIdAsync(userId, false);
-                if (palestrante == null) throw new Exception("Palestrante para delete não foi encontrado.");
-
-                _palestrantePersist.Delete<Palestrante>(palestrante);
-                return await _palestrantePersist.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        public async Task<PageList<PalestranteDto>> GetAllPalestrantesAsync(int userId, PageParams pageParams, bool includeEventos = false)
+        public async Task<PageList<PalestranteDto>> GetAllPalestrantesAsync(PageParams pageParams, bool includeEventos = false)
         {
             try
             {
@@ -106,7 +91,7 @@ namespace ProEventos.Application
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<PalestranteDto> GetPalestranteByIdAsync(int userId, int palestranteId, bool includeEventos = false)
+        public async Task<PalestranteDto> GetPalestranteByIdAsync(int userId, bool includeEventos = false)
         {
             try
             {
