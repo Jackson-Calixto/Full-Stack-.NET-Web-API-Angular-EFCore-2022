@@ -15,6 +15,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ProEventos.API.Helpers;
 using ProEventos.Application;
 using ProEventos.Application.Contratos;
 using ProEventos.Domain.Identity;
@@ -95,6 +96,7 @@ namespace ProEventos.API
             services.AddScoped<IUserPersist, UserPersist>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IUtil, Util>();
 
             services.AddCors(options =>
             {
