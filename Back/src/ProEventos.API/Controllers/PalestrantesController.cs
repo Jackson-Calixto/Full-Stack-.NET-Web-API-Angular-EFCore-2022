@@ -31,8 +31,8 @@ namespace ProEventos.API.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]PageParams pageParams)
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllPalestrantes([FromQuery]PageParams pageParams)
         {
             try
             {
@@ -50,8 +50,8 @@ namespace ProEventos.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet()]
+        public async Task<IActionResult> GetPalestrante()
         {
             try
             {
@@ -66,8 +66,6 @@ namespace ProEventos.API.Controllers
                     $"Erro ao tentar recuperar palestrante por id. Erro: {ex.Message}");
             }
         }
-
-        [HttpGet("tema/{tema}")]
 
         [HttpPost]
         public async Task<IActionResult> Post(PalestranteAddDto model)
@@ -90,8 +88,8 @@ namespace ProEventos.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, PalestranteUpdateDto model)
+        [HttpPut]
+        public async Task<IActionResult> Put(PalestranteUpdateDto model)
         {
             try
             {

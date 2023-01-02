@@ -7,8 +7,8 @@ namespace ProEventos.Persistence.Models
 {
     public class PageParams
     {
-        public int MaxPageSize { get; set; }
-        public int PageNumber { get; set; }
+        public int MaxPageSize = 50;
+        public int PageNumber { get; set; } = 1;
         public int pageSize = 10;
         public int PageSize
         {

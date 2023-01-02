@@ -12,11 +12,11 @@ namespace ProEventos.Persistence.Models
         public int TotalPages { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
-        public PageList(List<T> items, int currentPage, int pageSize, int totalCount)
+        public PageList(List<T> items, int totalCount, int currentPage, int pageSize)
         {
-            CurrentPage = currentPage;
-            PageSize = pageSize;
             TotalCount = totalCount;
+            PageSize = pageSize;
+            CurrentPage = currentPage;
             TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
             AddRange(items);
         }
@@ -30,7 +30,7 @@ namespace ProEventos.Persistence.Models
                                     .Take(pageSize)
                                     .ToListAsync();
 
-            return new PageList<T>(items, currentPage, pageSize, count);
+            return new PageList<T>(items, count, currentPage, pageSize);
         }
     }
 }
