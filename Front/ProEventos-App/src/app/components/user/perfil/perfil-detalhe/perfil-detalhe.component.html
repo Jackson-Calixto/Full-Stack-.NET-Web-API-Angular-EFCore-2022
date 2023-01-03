@@ -1,0 +1,148 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="form-group col-12">
+      <h3 class="border-bottom">Detalhe Perfil</h3>
+    </div>
+    <div class="form-group col">
+      <label>Título</label>
+      <select
+        class="form-control"
+        placeholder="Não Informado"
+        formControlName="titulo"
+        [ngClass]="cssValidator(f.titulo)"
+      >
+        <option value=""></option>
+        <option value="NaoInformado">Não Informado</option>
+        <option value="Tecnologo">Tecnólogo(a)</option>
+        <option value="Bacharel">Bacharel</option>
+        <option value="Especialista">Especialista</option>
+        <option value="PosGraduado">Pós Graduado(a)</option>
+        <option value="Mestrado">Mestre</option>
+        <option value="Doutorado">Doutor(a)</option>
+        <option value="PosDoutorado">Pós Doc</option>
+      </select>
+      <div class="invalid-feedback">Título é obrigatório...</div>
+    </div>
+    <div class="form-group col-sm-5">
+      <label>Primeiro Nome</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Informe o Primeiro Nome"
+        formControlName="primeiroNome"
+        [ngClass]="cssValidator(f.primeiroNome)"
+      />
+      <div class="invalid-feedback">Primeiro Nome é obrigatório...</div>
+    </div>
+    <div class="form-group col-sm-5">
+      <label>Último Nome</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Informe o Último Nome"
+        formControlName="ultimoNome"
+        [ngClass]="cssValidator(f.ultimoNome)"
+      />
+      <div class="invalid-feedback">Último Nome é obrigatório...</div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-sm-5">
+      <label>E-mail</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Informe o E-mail"
+        formControlName="email"
+        [ngClass]="cssValidator(f.email)"
+      />
+      <div class="invalid-feedback">E-mail é obrigatório...</div>
+    </div>
+    <div class="form-group col-sm-4">
+      <label>Telefone</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Informe o Telefone"
+        formControlName="phoneNumber"
+        [ngClass]="cssValidator(f.phoneNumber)"
+      />
+      <div class="invalid-feedback">Telefone é obrigatório...</div>
+    </div>
+    <div class="form-group col-sm">
+      <label>Função</label>
+      <select
+        class="form-control"
+        placeholder="Não Informado"
+        formControlName="funcao"
+        [ngClass]="cssValidator(f.funcao)"
+      >
+        <option value="NaoInformado">Não Informado</option>
+        <option value="Participante">Participante</option>
+        <option value="Palestrante">Palestrante</option>
+      </select>
+      <div class="invalid-feedback">Função é obrigatório...</div>
+    </div>
+    <div class="form-group col-12">
+      <label>Descrição</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Informe a Descrição"
+        formControlName="descricao"
+        [ngClass]="cssValidator(f.descricao)"
+      />
+      <div class="invalid-feedback">Descrição é obrigatório...</div>
+    </div>
+  </div>
+  <div>
+    <h3 class="pt-3 border-bottom">Mudar Senha</h3>
+    <p>Caso mude de senha, preencha os campos abaixo:</p>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-sm">
+      <label>Senha</label>
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Digite a Senha"
+        formControlName="password"
+        [ngClass]="cssValidator(f.password)"
+      />
+      <div *ngIf="f.password.errors?.minlength" class="invalid-feedback">
+        Senha deve ter ao menos 4 caracteres...
+      </div>
+    </div>
+    <div class="form-group col-sm">
+      <label>Confirmar Senha</label>
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Confirme a Senha"
+        formControlName="confirmarPassword"
+        [ngClass]="cssValidator(f.confirmarPassword)"
+      />
+      <div
+        *ngIf="f.confirmarPassword.errors?.mustMatch"
+        class="invalid-feedback"
+      >
+        Repita a mesma Senha...
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <div class="d-flex">
+      <button
+        class="btn btn-outline-secondary mr-auto border"
+        (click)="resetForm($event)"
+      >
+        Cancelar Alteração
+      </button>
+      <button class="btn btn-success" [disabled]="!form.valid" type="submit">
+        <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+        Salvar Alteração
+      </button>
+    </div>
+  </div>
+</form>
