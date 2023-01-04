@@ -10,4 +10,5 @@ export class UserUpdate {
   password!: string;
   confirmarPassword!: string;
   token!: string;
+  imagemURL: string;
 }
