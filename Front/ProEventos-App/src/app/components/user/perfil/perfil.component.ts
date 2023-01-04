@@ -19,13 +19,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./perfil.component.css'],
 })
 export class PerfilComponent implements OnInit {
-  userUpdate = {} as UserUpdate;
-  
+  usuario = {} as UserUpdate;
+
   constructor() {}
 
   ngOnInit(): void {}
 
-  get f(): any {
-    return '';
+  setFormValue(usuario: UserUpdate): void {
+    this.usuario = usuario;
   }
 }

@@ -17,12 +17,12 @@
             </a>
           </div>
           <div class="card-body">
-            <div class="h4 text-center mb-3">@{{ userUpdate.userName }}</div>
+            <div class="h4 text-center mb-3">@{{ usuario.userName }}</div>
             <div class="h7 text-bold pb-1">
-              <b>Nome:</b> {{ userUpdate.primeiroNome + " " + userUpdate.ultimoNome }}
+              <b>Nome:</b> {{ usuario.primeiroNome + " " + usuario.ultimoNome }}
             </div>
             <div class="h7">
-              {{ userUpdate.descricao }}
+              {{ usuario.descricao }}
             </div>
           </div>
           <ul class="list-group list-group-flush">
@@ -50,7 +50,7 @@
                 <i class="fa fa-address-card mr-2"></i>
                 <span>Perfil</span>
               </ng-template>
-              <app-perfil-detalhe></app-perfil-detalhe>
+              <app-perfil-detalhe (changeFormValue)="setFormValue($event)"></app-perfil-detalhe>
             </tab>
             <tab class="border border-top-0 p-3">
               <ng-template tabHeading>
