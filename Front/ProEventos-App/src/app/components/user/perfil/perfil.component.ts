@@ -25,6 +25,10 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  get ehPalestrante(): boolean {
+    return this.usuario.funcao === 'Palestrante';
+  }
+
   setFormValue(usuario: UserUpdate): void {
     this.usuario = usuario;
   }
