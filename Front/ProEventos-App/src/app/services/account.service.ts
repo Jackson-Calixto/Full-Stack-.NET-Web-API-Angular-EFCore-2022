@@ -13,11 +13,12 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<User>(1);
   public currentUser$ = this.currentUserSource.asObservable();
 
-  baseUrl = environment.apiURL + 'api/account/';
+  baseURL = environment.apiURL + 'api/account/';
+
   constructor(private http: HttpClient) {}
 
   public login(model: any): Observable<void> {
-    return this.http.post<User>(this.baseUrl + 'login', model).pipe(
+    return this.http.post<User>(this.baseURL + 'login', model).pipe(
       take(1),
       map((response: User) => {
         const user = response;
@@ -29,12 +30,12 @@ export class AccountService {
   }
 
   getUser(): Observable<UserUpdate> {
-    return this.http.get<UserUpdate>(this.baseUrl + 'getUser').pipe(take(1));
+    return this.http.get<UserUpdate>(this.baseURL + 'getUser').pipe(take(1));
   }
 
   updadeUser(model: UserUpdate): Observable<void> {
-    return this.http.put<UserUpdate>(this.baseUrl + 'updateUser', model).pipe(
-      take(1), 
+    return this.http.put<UserUpdate>(this.baseURL + 'updateUser', model).pipe(
+      take(1),
       map((user: UserUpdate) => {
         this.setCurrentUser(user);
       })
@@ -42,7 +43,7 @@ export class AccountService {
   }
 
   public register(model: any): Observable<void> {
-    return this.http.post<User>(this.baseUrl + 'register', model).pipe(
+    return this.http.post<User>(this.baseURL + 'register', model).pipe(
       take(1),
       map((response: User) => {
         const user = response;
@@ -67,5 +68,13 @@ export class AccountService {
     const user =
       typeof obj === 'object' ? obj : JSON.parse(obj.toString?.() ?? '{}');
     return user && 'userName' in user;
+  }
+
+  postUpload(file: File): Observable<UserUpdate>{
+    const fileToUpload = file;
+    const formData = new FormData();
+    formData.append('file', fileToUpload);
+
+    return this.http.post<UserUpdate>(`${this.baseURL}upload-image`, formData).pipe(take(1));
   }
 }

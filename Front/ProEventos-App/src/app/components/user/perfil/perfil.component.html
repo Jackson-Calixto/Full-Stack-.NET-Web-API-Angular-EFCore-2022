@@ -1,73 +1,82 @@
 <app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-user'"></app-titulo>
 
 <div class="card rounded shadow-sm">
-    <div class="row p-3">
-      <div class="col-lg-3 pt-1">
-        <div class="card mb-3">
-          <div class="card-header"></div>
-          <div class="d-flex align-self-center pt-3">
-            <a>
-              <img
-                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
-                name="aboutme"
-                width="120"
-                height="120"
-                class="rounded-circle"
-              />
-            </a>
+  <div class="row p-3">
+    <div class="col-lg-3 pt-1">
+      <div class="card mb-3">
+        <div class="card-header">
+          <input
+            type="file"
+            #file
+            (change)="onFileChange($event)"
+            style="display: none"
+          />
+        </div>
+        <div class="d-flex align-self-center pt-3">
+          <img
+            [src]="imagemURL"
+            name="aboutme"
+            width="120"
+            height="120"
+            class="rounded-circle"
+            (click)="file.click()"
+            style="cursor: pointer;"
+          />
+        </div>
+        <div class="card-body">
+          <div class="h4 text-center mb-3">@{{ usuario.userName }}</div>
+          <div class="h7 text-bold pb-1">
+            <b>Nome:</b> {{ usuario.primeiroNome + " " + usuario.ultimoNome }}
           </div>
-          <div class="card-body">
-            <div class="h4 text-center mb-3">@{{ usuario.userName }}</div>
-            <div class="h7 text-bold pb-1">
-              <b>Nome:</b> {{ usuario.primeiroNome + " " + usuario.ultimoNome }}
-            </div>
-            <div class="h7">
-              {{ usuario.descricao }}
-            </div>
+          <div class="h7">
+            {{ usuario.descricao }}
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col-6 text-center border-right">
-                  <div class="h5">1342</div>
-                  <div class="h6 text-muted">Eventos Ministrados</div>
-                </div>
-                <div class="col-6 text-center">
-                  <div class="h5">1342</div>
-                  <div class="h6 text-muted">Eventos Participados</div>
-                </div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-6 text-center border-right">
+                <div class="h5">1342</div>
+                <div class="h6 text-muted">Eventos Ministrados</div>
               </div>
-            </li>
-          </ul>
-          <div class="card-footer"></div>
-        </div>
-      </div>
-      <div class="col-lg-9">
-        <div>
-          <tabset>
-            <tab class="border border-top-0 p-3">
-              <ng-template tabHeading>
-                <i class="fa fa-address-card mr-2"></i>
-                <span>Perfil</span>
-              </ng-template>
-              <app-perfil-detalhe (changeFormValue)="setFormValue($event)"></app-perfil-detalhe>
-            </tab>
-            <tab *ngIf="ehPalestrante" class="border border-top-0 p-3">
-              <ng-template tabHeading>
-                <i class="fa fa-user mr-2"></i>
-                <span>Palestrante</span>
-              </ng-template>
-              // Component Palestrante //
-            </tab>
-            <tab *ngIf="ehPalestrante" class="border border-top-0 p-3">
-              <ng-template tabHeading>
-                <i class="fa fa-share-square mr-2"></i>
-                <span>Rede Social</span>
-              </ng-template>
-              // Component Rede Social //
-            </tab>
-          </tabset>
-        </div>
+              <div class="col-6 text-center">
+                <div class="h5">1342</div>
+                <div class="h6 text-muted">Eventos Participados</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="card-footer"></div>
       </div>
     </div>
+    <div class="col-lg-9">
+      <div>
+        <tabset>
+          <tab class="border border-top-0 p-3">
+            <ng-template tabHeading>
+              <i class="fa fa-address-card mr-2"></i>
+              <span>Perfil</span>
+            </ng-template>
+            <app-perfil-detalhe
+              (changeFormValue)="setFormValue($event)"
+            ></app-perfil-detalhe>
+          </tab>
+          <tab *ngIf="ehPalestrante" class="border border-top-0 p-3">
+            <ng-template tabHeading>
+              <i class="fa fa-user mr-2"></i>
+              <span>Palestrante</span>
+            </ng-template>
+            // Component Palestrante //
+          </tab>
+          <tab *ngIf="ehPalestrante" class="border border-top-0 p-3">
+            <ng-template tabHeading>
+              <i class="fa fa-share-square mr-2"></i>
+              <span>Rede Social</span>
+            </ng-template>
+            // Component Rede Social //
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
 </div>
