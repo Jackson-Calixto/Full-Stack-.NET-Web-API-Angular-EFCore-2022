@@ -9,6 +9,12 @@ import { map, Observable, take } from 'rxjs';
   providedIn: 'root'
 })
 export class PalestranteService {
+  subscribe(arg0: (result: any) => void, arg1: (error: any) => void) {
+    throw new Error('Method not implemented.');
+  }
+  delete(palestranteId: number) {
+    throw new Error('Method not implemented.');
+  }
 
   baseURL = environment.apiURL + 'api/palestrantes';
 
