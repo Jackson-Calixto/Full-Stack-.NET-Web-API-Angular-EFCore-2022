@@ -1,4 +1,4 @@
-<app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-user'"></app-titulo>
+<app-titulo [titulo]="'Perfil' + (ehPalestrante?' Palestrante':'')" [iconClass]="'fa fa-user'"></app-titulo>
 
 <div class="card rounded shadow-sm">
   <div class="row p-3">
@@ -20,7 +20,7 @@
             height="120"
             class="rounded-circle"
             (click)="file.click()"
-            style="cursor: pointer;"
+            style="cursor: pointer"
           />
         </div>
         <div class="card-body">
@@ -37,11 +37,11 @@
             <div class="row">
               <div class="col-6 text-center border-right">
                 <div class="h5">1342</div>
-                <div class="h6 text-muted">Eventos Ministrados</div>
+                <div class="h6 text-muted">Meus Eventos Criados</div>
               </div>
               <div class="col-6 text-center">
                 <div class="h5">1342</div>
-                <div class="h6 text-muted">Eventos Participados</div>
+                <div class="h6 text-muted">Eventos como {{(ehPalestrante?'Palestrante':'Participante')}}</div>
               </div>
             </div>
           </li>
@@ -66,7 +66,7 @@
               <i class="fa fa-user mr-2"></i>
               <span>Palestrante</span>
             </ng-template>
-            // Component Palestrante //
+            <app-palestrante-detalhe></app-palestrante-detalhe>
           </tab>
           <tab *ngIf="ehPalestrante" class="border border-top-0 p-3">
             <ng-template tabHeading>

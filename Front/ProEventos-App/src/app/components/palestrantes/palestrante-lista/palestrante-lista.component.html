@@ -9,14 +9,17 @@
         <input
           type="text"
           class="form-control"
-          placeholder="por Tema e Local"
+          placeholder="por Nome e Minicurrículo."
           (input)="filtrarPalestrantes($event.target)"
         />
       </div>
     </div>
   </div>
   <div *ngIf="palestrantes && palestrantes.length" class="row mt-2">
-    <div class="col-md-4 mb-4 d-flex align-items-stretch" *ngFor="let palestrante of palestrantes">
+    <div
+      class="col-md-4 mb-4 d-flex align-items-stretch"
+      *ngFor="let palestrante of palestrantes"
+    >
       <div class="card">
         <div class="d-flex align-self-center pt-3">
           <img
@@ -27,9 +30,14 @@
           />
         </div>
         <div class="card-body">
-          <div class="h4 text-center mb-3">@{{ palestrante.user.userName }}</div>
+          <div class="h4 text-center mb-3">
+            @{{ palestrante.user.userName }}
+          </div>
           <div class="h7 text-bold pb-1">
-            <b>Nome:</b> {{ palestrante.user.primeiroNome + " " + palestrante.user.ultimoNome }}
+            <b>Nome:</b>
+            {{
+              palestrante.user.primeiroNome + " " + palestrante.user.ultimoNome
+            }}
           </div>
           <div class="h7">
             {{ palestrante.miniCurriculo }}
@@ -40,11 +48,11 @@
             <div class="row">
               <div class="col-6 text-center border-right">
                 <div class="h5">0</div>
-                <div class="h6 text-muted">Eventos criados.</div>
+                <div class="h6 text-muted">Eventos Criados</div>
               </div>
               <div class="col-6 text-center">
                 <div class="h5">0</div>
-                <div class="h6 text-muted">Palestras realizadas.</div>
+                <div class="h6 text-muted">Eventos como Palestrante</div>
               </div>
             </div>
           </li>
