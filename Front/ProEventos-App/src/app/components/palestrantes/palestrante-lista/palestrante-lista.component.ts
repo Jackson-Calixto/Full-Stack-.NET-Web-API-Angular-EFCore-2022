@@ -84,6 +84,13 @@ export class PalestranteListaComponent implements OnInit {
     this.getPalestrantes();
   }
 
+  public getImagemURL(imagemName: string): string {
+    if (imagemName)
+      return `${environment.apiURL}resources/perfil/${imagemName}`
+    else
+      return './assets/SemImagem.png';
+  }
+
   public alterarImagem(): void {
     this.exibirImagem = !this.exibirImagem;
   }
