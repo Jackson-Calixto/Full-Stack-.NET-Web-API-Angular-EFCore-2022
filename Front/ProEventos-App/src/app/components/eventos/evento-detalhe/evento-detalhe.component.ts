@@ -219,17 +219,6 @@ export class EventoDetalheComponent implements OnInit {
   salvarLote() {
     this.spinner.show();
     if (this.lotes.valid) {
-      // for (let i = 0; i < this.lotes.value.length; i++) {
-      //   this.lotes.value[i].dataInicio = new DateFormatPipe().transform(
-      //     this.lotes.value[i].dataInicio,
-      //     'save'
-      //   );
-      //   this.lotes.value[i].dataFim = new DateFormatPipe().transform(
-      //     this.lotes.value[i].dataFim,
-      //     'save'
-      //   );
-      // }
-
       this.loteService
         .SaveLotes(this.eventoId, this.form.value.lotes)
         .subscribe(
