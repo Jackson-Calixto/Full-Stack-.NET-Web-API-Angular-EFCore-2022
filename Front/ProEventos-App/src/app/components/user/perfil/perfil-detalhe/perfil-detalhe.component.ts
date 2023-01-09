@@ -44,7 +44,6 @@ export class PerfilDetalheComponent implements OnInit {
       .getUser()
       .subscribe(
         (userRetorno: UserUpdate) => {
-          console.log(userRetorno);
           this.userUpdate = userRetorno;
           this.userUpdate.confirmarPassword = this.userUpdate.password;
           this.form.patchValue(this.userUpdate);
