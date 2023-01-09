@@ -40,17 +40,19 @@ export class RedesSociaisComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.eventoId === 0) {
-      this.carregarRedeSocial('Palestrante');
-    }
+    this.carregarRedeSocial();
     this.validation();
   }
 
-  carregarRedeSocial(origem: string, id: number = 0): void {
+  carregarRedeSocial(): void {
+    let origem = 'Palestrante';
+
+    if (this.eventoId !== 0) origem = 'Evento';
+
     this.spinner.show();
 
     this.redeSocialService
-      .getRedesSociais(origem, id)
+      .getRedesSociais(origem, this.eventoId)
       .subscribe(
         (redeSocialRetorno: RedeSocial[]) => {
           redeSocialRetorno.forEach((redeSocial: RedeSocial) => {
