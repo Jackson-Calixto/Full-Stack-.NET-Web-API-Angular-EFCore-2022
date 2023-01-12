@@ -309,3 +309,7 @@ removing from app.module.ts
 schemas: [CUSTOM_ELEMENTS_SCHEMA], 
 display hidden errors
 
+How to re-create/restore database for Entity Framework from Migrations?
+Usage: dotnet ef database update [arguments] [options]
+-s|--startup-project <PROJECT>         The startup project to use.
+dotnet ef database update -s .\ProEventos.API\ProEventos.API.csproj
